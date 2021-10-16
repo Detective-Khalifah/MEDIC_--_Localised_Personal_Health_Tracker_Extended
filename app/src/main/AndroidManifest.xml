@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:name=".data.AlarmProvider"
+            android:authorities="com.blogspot.thengnet.medic"
+            android:exported="false" />
+        <provider
+            android:name=".data.CalendarProvider"
+            android:authorities="com.blogspot.thengnet.medic"
+            android:exported="false" />
     </application>
 
 </manifest>

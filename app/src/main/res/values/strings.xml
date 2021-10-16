@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MEDIC</string>
+    <string name="app_name">@string/project_title0</string>
+    <string name="project_title0">MEDIC</string>
+    <string name="project_title1">Localised Personal Health Tracker Extended</string>
 </resources>
