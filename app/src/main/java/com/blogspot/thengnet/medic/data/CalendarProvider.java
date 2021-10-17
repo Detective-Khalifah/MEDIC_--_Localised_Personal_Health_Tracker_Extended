@@ -7,8 +7,9 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class CalendarProvider extends ContentProvider {
 
@@ -80,7 +81,7 @@ public class CalendarProvider extends ContentProvider {
         String eventReminderTime = contentValues.getAsString(CalendarContract.CalendarEntry.COLUMN_EVENT_REMINDER_TIME);
         int eventReminderRepeatStatus = contentValues.getAsInteger(CalendarContract.CalendarEntry.COLUMN_EVENT_REPEAT_STATUS);
         String eventReminderRepeatDates = contentValues.getAsString(CalendarContract.CalendarEntry.COLUMN_EVENT_REPEAT_DATES);
-        String eventLocation =  contentValues.getAsString(CalendarContract.CalendarEntry.COLUMN_EVENT_LOCATION);
+        String eventLocation = contentValues.getAsString(CalendarContract.CalendarEntry.COLUMN_EVENT_LOCATION);
 
         if (eventLabel == null)
             throw new IllegalArgumentException("Event label is missing!");
