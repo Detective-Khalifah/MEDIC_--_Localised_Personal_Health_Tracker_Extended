@@ -45,6 +45,13 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(SignInActivity.this, SignUpWithEMail.class));
             }
         });
+
+        binding.skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view) {
+                startActivity(new Intent(SignInActivity.this, AlarmsActivity.class));
+            }
+        });
     }
 
     private void signIn (String email, String password) {
