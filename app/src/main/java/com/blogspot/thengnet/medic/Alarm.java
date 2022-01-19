@@ -5,6 +5,7 @@ public class Alarm {
     // TODO: Using {@link String} type for #startTime & #endTime during testing; re-factor to a
     //  suitable Date format later.
     private boolean isDay;
+    private boolean alarmStatus;
     private String title;
     private String description;
     private String startDate;
@@ -12,9 +13,10 @@ public class Alarm {
     private String endDate;
     private String endTime;
 
-    public Alarm (boolean isDay, String title, String description, String startDate,
+    public Alarm (boolean isDay, boolean alarmStatus, String title, String description, String startDate,
                      String startTime, String endDate, String endTime) {
         this.isDay = isDay;
+        this.alarmStatus = alarmStatus;
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -29,6 +31,14 @@ public class Alarm {
 
     public void setDay (boolean day) {
         isDay = day;
+    }
+
+    public boolean getAlarmStatus () {
+        return alarmStatus;
+    }
+
+    public void setAlarmStatus (boolean alarmStatus) {
+        this.alarmStatus = alarmStatus;
     }
 
     public String getTitle () {

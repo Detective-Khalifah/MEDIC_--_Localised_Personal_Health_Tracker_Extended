@@ -64,7 +64,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.view_profile_menu, menu);
+        getMenuInflater().inflate(R.menu.view_profile, menu);
         return super.onCreateOptionsMenu(menu);
     }
 }

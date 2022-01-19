@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
@@ -48,16 +47,17 @@ public class AlarmsActivity extends AppCompatActivity {
 
         alarms = new ArrayList<>();
 
-        Alarm testSched0 = new Alarm(true, "Vitamin supplement", "1 pill", "2017-12-01", "09:00", "2021-12-10", "10:00");
-        Alarm testSched1 = new Alarm(true, "Blood tonic", "20 ml", "2021-07-02", "11:00", "2021-07-30", "09:00");
-        Alarm testSched2 = new Alarm(true, "Exercise", "Daily jogging exercise.", "2020-05-01", "06:00", "2020-05-30", "06:30");
-        Alarm testSched3 = new Alarm(false, "Apple", "1", "2021-02-20", "21:45", "2021-04-30", "22:00");
+        Alarm testSched0 = new Alarm(true, false,  "Vitamin supplement", "1 pill", "2017-12-01", "09:00", "2021-12-10", "10:00");
+        Alarm testSched1 = new Alarm(true, true, "Blood tonic", "20 ml", "2021-07-02", "11:00", "2021-07-30", "09:00");
+        Alarm testSched2 = new Alarm(true, false,"Exercise", "Daily jogging exercise.", "2020-05-01", "06:00", "2020-05-30", "06:30");
+        Alarm testSched3 = new Alarm(false, true,"Apple", "1", "2021-02-20", "21:45", "2021-04-30", "22:00");
         alarms.add(testSched0);
         alarms.add(testSched1);
         alarms.add(testSched2);
         alarms.add(testSched3);
 
-        alarmsAdapter = new AlarmsAdapter(this, 0, alarms);
+//        alarmsAdapter = new AlarmsAdapter(this, 0, alarms);
+        alarmsAdapter = new AlarmsAdapter(this, R.layout.alarm, alarms);
         binding.listviewAlarms.setAdapter(alarmsAdapter);
 
         mSelectedAlarmParams = new Bundle();
@@ -99,20 +99,25 @@ public class AlarmsActivity extends AppCompatActivity {
             public void onClick (View view) {
                 Snackbar.make(view, "Phase 2 Task: Add scheduled alarm", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                startActivity(new Intent(appContext, EditAlarmActivity.class).putExtras(mSelectedAlarmParams));
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_alarms, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected (@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_view_profile)
-            startActivity(new Intent(this, ViewProfileActivity.class));
+        switch (item.getItemId()) {
+            case R.id.action_view_profile:
+                startActivity(new Intent(this, ViewProfileActivity.class));
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -73,31 +73,31 @@ public class AlarmsAdapter extends ArrayAdapter<Alarm> {
 
         binding.editStartTime.setOnClickListener(new Dates(binding.editStartTime, "time"));
 
-        binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View view) {
-                /**
-                 * Dummy data to send to {@link EditAlarmActivity}
-                 * TODO: set up a database to contain the data, and use id to fetch data from it
-                 * instead of passing the data from this {@link AlarmsActivity}
-                 */
-//                Bundle mSelectedAlarmParams = null;
-//                ArrayList<String> mSelectedAlarmParamsList = null;
-//
-//                mSelectedAlarmParamsList.addAll(Collections.singleton(alarms.toString()));
-//
-//                Alarm selectedAlarm = alarms.get(position);
-//                mSelectedAlarmParams.putStringArray("selected-alarm", new String[]{
-//                                selectedAlarm.getTitle(), selectedAlarm.getDescription(),
-//                                selectedAlarm.getStartDate(), selectedAlarm.getStartTime(),
-//                                selectedAlarm.getEndDate(), selectedAlarm.getEndTime()
-//                        }
-//                );
-                Log.v(this.getClass().getName(), "List item " + position + " clicked.");
-                Toast.makeText(mAppContext, "List item " + position + " clicked.", Toast.LENGTH_SHORT).show();
-//                mAppContext.startActivity(new Intent(mAppContext, EditAlarmActivity.class).putExtras(mSelectedAlarmParams));
-            }
-        });
+//        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick (View view) {
+//                /**
+//                 * Dummy data to send to {@link EditAlarmActivity}
+//                 * TODO: set up a database to contain the data, and use id to fetch data from it
+//                 * instead of passing the data from this {@link AlarmsActivity}
+//                 */
+////                Bundle mSelectedAlarmParams = null;
+////                ArrayList<String> mSelectedAlarmParamsList = null;
+////
+////                mSelectedAlarmParamsList.addAll(Collections.singleton(alarms.toString()));
+////
+////                Alarm selectedAlarm = alarms.get(position);
+////                mSelectedAlarmParams.putStringArray("selected-alarm", new String[]{
+////                                selectedAlarm.getTitle(), selectedAlarm.getDescription(),
+////                                selectedAlarm.getStartDate(), selectedAlarm.getStartTime(),
+////                                selectedAlarm.getEndDate(), selectedAlarm.getEndTime()
+////                        }
+////                );
+//                Log.v(this.getClass().getName(), "List item " + position + " clicked.");
+//                Toast.makeText(mAppContext, "List item " + position + " clicked.", Toast.LENGTH_SHORT).show();
+////                mAppContext.startActivity(new Intent(mAppContext, EditAlarmActivity.class).putExtras(mSelectedAlarmParams));
+//            }
+//        });
         return binding.getRoot();
     }
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="alarm_ring_duration_keys">
+        <item>@string/one_min</item>
+        <item>@string/three_mins</item>
+        <item>@string/five_mins</item>
+        <item>@string/ten_mins</item>
+    </string-array>
+    <string-array name="alarm_ring_duration_labels">
+        <item>@string/one_min</item>
+        <item>@string/three_mins</item>
+        <item>@string/five_mins</item>
+        <item>@string/ten_mins</item>
+
+    </string-array>
+
+    <string-array name="calendar_reminder_duration_keys">
+        <item>@string/one_min</item>
+        <item>@string/three_mins</item>
+        <item>@string/five_mins</item>
+        <item>@string/ten_mins</item>
+    </string-array>
+    <string-array name="calendar_reminder_duration_labels">
+        <item>@string/one_min</item>
+        <item>@string/three_mins</item>
+        <item>@string/five_mins</item>
+        <item>@string/ten_mins</item>
+    </string-array>
+
+    <string-array name="snooze_length_keys">
+        <item>@string/one_min</item>
+        <item>@string/three_mins</item>
+        <item>@string/five_mins</item>
+        <item>@string/ten_mins</item>
+    </string-array>
+    <string-array name="snooze_length_labels">
+        <item>@string/one_min</item>
+        <item>@string/three_mins</item>
+        <item>@string/five_mins</item>
+        <item>@string/ten_mins</item>
+    </string-array>
+
+    <string-array name="language_keys">
+        <item>@string/lang_english</item>
+        <item>@string/lang_hausa</item>
+        <item>@string/lang_igbo</item>
+        <item>@string/lang_yoruba</item>
+    </string-array>
+
+    <string-array name="language_labels">
+        <item>@string/lang_english</item>
+        <item>@string/lang_hausa</item>
+        <item>@string/lang_igbo</item>
+        <item>@string/lang_yoruba</item>
+    </string-array>
+
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+</resources>

@@ -23,4 +23,62 @@
     <string name="img_thumb_desc">Scheduled Time Illustration</string>
     <string name="action_skip">Skip</string>
     <string name="action_view_profile">View Profile</string>
+    <string name="news_settings_menu_title">Settings</string>
+    <string name="settings_summary">Configurations for...</string>
+
+    <!-- USED LOCALLY IN APP TO DETERMINE CONFIG -->
+    <string name="settings_alarm_ring_duration_key" translatable="false">alarm_ring_duration</string>
+    <string name="settings_alarm_ring_duration_label">Alarm Ring Duration</string>
+
+    <string name="settings_calendar_reminder_duration_key" translatable="false">calendar_reminder_duration</string>
+    <string name="settings_calendar_reminder_duration_label">Calendar Reminder Duration</string>
+
+    <string name="settings_language_key" translatable="false">languages</string>
+    <string name="settings_language_label">Preferred Language</string>
+
+    <string name="settings_snooze_length_key" translatable="false">snooze_length</string>
+    <string name="settings_snooze_length_label">Snooze Length</string>
+
+    <string name="alarm_header">Alarm</string>
+    <string name="alarm_volume">Alarm Volume</string>
+    <string name="calendar_header">Calendar</string>
+    <string name="reminder_volume">Reminder Volume</string>
+
+    <string name="menu_alarm">Alarms</string>
+    <string name="menu_appointment">Appointments</string>
+    <string name="menu_hospital">Locate a Hospital</string>
+
+    <string name="one_min">1 minute</string>
+    <string name="three_mins">3 minutes</string>
+    <string name="five_mins">5 minutes</string>
+    <string name="ten_mins">10 minutes</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Languages -->
+    <string name="lang_english">English (NG)</string>
+    <string name="lang_hausa">Hausa (NG)</string>
+    <string name="lang_igbo">Igbo (NG)</string>
+    <string name="lang_yoruba">Yoruba (NG)</string>
+
+    <string name="nav_header_title">WAZOBIA</string>
+    <string name="nav_header_subtitle">Personal Health Tracker (Extended)</string>
+    <string name="nav_header_desc">FYP</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

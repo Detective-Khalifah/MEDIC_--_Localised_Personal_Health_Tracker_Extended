@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_alarm"
+            android:checked="true"
+            android:icon="@drawable/twotone_alarm_24"
+            android:title="@string/menu_alarm" />
+
+        <item
+            android:id="@+id/nav_appointment"
+            android:icon="@drawable/twotone_event_24"
+            android:title="@string/menu_appointment" />
+
+        <item
+            android:id="@+id/nav_hospital"
+            android:icon="@drawable/twotone_local_hospital_24"
+            android:title="@string/menu_hospital" />
+
+    </group>
+
+</menu>

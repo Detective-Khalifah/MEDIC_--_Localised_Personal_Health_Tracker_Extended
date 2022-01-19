@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:summary="@string/settings_summary"
+    android:title="@string/news_settings_menu_title">
+
+    <PreferenceCategory android:title="@string/alarm_header">
+
+        <SeekBarPreference
+            android:defaultValue="10"
+            android:max="100"
+            android:title="@string/alarm_volume">
+
+        </SeekBarPreference>
+
+        <ListPreference
+            android:defaultValue="@string/one_min"
+            android:entries="@array/alarm_ring_duration_labels"
+            android:entryValues="@array/alarm_ring_duration_keys"
+            android:key="@string/settings_alarm_ring_duration_key"
+            android:title="Alarm Ring Duration" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/calendar_header">
+        <SeekBarPreference
+            android:defaultValue="10"
+            android:max="100"
+            android:title="@string/reminder_volume">
+
+        </SeekBarPreference>
+
+        <ListPreference
+            android:defaultValue="@string/one_min"
+            android:entries="@array/calendar_reminder_duration_labels"
+            android:entryValues="@array/calendar_reminder_duration_keys"
+            android:key="@string/settings_calendar_reminder_duration_key"
+            android:title="Calendar Reminder Duration" />
+
+    </PreferenceCategory>
+
+    <ListPreference
+        android:defaultValue="@string/lang_english"
+        android:entries="@array/language_labels"
+        android:entryValues="@array/language_keys"
+        android:key="@string/settings_language_key"
+        android:title="Language" />
+
+    <ListPreference
+        android:defaultValue="@string/five_mins"
+        android:entries="@array/snooze_length_keys"
+        android:entryValues="@array/snooze_length_labels"
+        android:key="@string/settings_snooze_length_key"
+        android:title="Snooze Length" />
+
+</PreferenceScreen>
