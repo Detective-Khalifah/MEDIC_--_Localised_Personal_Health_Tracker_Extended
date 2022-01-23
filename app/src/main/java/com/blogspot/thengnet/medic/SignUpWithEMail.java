@@ -1,5 +1,6 @@
 package com.blogspot.thengnet.medic;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,10 +62,10 @@ public class SignUpWithEMail extends AppCompatActivity {
                     @Override
                     public void onComplete (@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, open AlarmsActivity
+                            // Sign in success, open MainActivity
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(SignUpWithEMail.this, AlarmsActivity.class));
+                            startActivity(new Intent(SignUpWithEMail.this, MainActivity.class));
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

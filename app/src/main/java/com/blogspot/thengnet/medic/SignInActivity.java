@@ -1,5 +1,6 @@
 package com.blogspot.thengnet.medic;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         binding.skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                startActivity(new Intent(SignInActivity.this, AlarmsActivity.class));
+                startActivity(new Intent(SignInActivity.this,MainActivity.class));
             }
         });
     }
@@ -60,11 +61,11 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete (@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, open AlarmsActivity
+                            // Sign in success, open MainActivity
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null)
-                                startActivity(new Intent(SignInActivity.this, AlarmsActivity.class));
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

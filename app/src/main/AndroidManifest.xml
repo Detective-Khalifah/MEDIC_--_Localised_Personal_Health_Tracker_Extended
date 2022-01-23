@@ -32,10 +32,7 @@
         <activity
             android:name=".EditAlarmActivity"
             android:exported="true" />
-        <activity
-            android:name=".AlarmsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_alarms" /> <!-- android:theme="@style/Theme.MEDIC.NoActionBar" /> -->
+        <!-- android:theme="@style/Theme.MEDIC.NoActionBar" /> -->
         <activity
             android:name=".SignInActivity"
             android:exported="true"

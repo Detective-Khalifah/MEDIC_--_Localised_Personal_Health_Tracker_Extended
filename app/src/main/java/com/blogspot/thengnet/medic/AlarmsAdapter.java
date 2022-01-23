@@ -27,8 +27,6 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
-import static com.blogspot.thengnet.medic.AlarmsActivity.alarms;
-
 public class AlarmsAdapter extends ArrayAdapter<Alarm> {
 
     private static TimePickerDialog mTimePickerDialogFrag;
@@ -79,7 +77,7 @@ public class AlarmsAdapter extends ArrayAdapter<Alarm> {
 //                /**
 //                 * Dummy data to send to {@link EditAlarmActivity}
 //                 * TODO: set up a database to contain the data, and use id to fetch data from it
-//                 * instead of passing the data from this {@link AlarmsActivity}
+//                 * instead of passing the data from here
 //                 */
 ////                Bundle mSelectedAlarmParams = null;
 ////                ArrayList<String> mSelectedAlarmParamsList = null;

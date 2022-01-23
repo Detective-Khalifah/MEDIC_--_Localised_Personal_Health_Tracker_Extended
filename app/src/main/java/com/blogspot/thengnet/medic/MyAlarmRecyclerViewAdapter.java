@@ -1,22 +1,17 @@
 package com.blogspot.thengnet.medic;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.blogspot.thengnet.medic.databinding.AlarmBinding;
-import com.blogspot.thengnet.medic.placeholder.PlaceholderContent.PlaceholderItem;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
+ * {@link RecyclerView.Adapter} that can display an {@link Alarm}.
  */
 public class MyAlarmRecyclerViewAdapter extends RecyclerView.Adapter<MyAlarmRecyclerViewAdapter.ViewHolder> {
 
@@ -24,15 +19,15 @@ public class MyAlarmRecyclerViewAdapter extends RecyclerView.Adapter<MyAlarmRecy
     private OnAlarmClickListener onAlarmClickListener;
 
     public interface OnAlarmClickListener {
-        void onAlarmClick(int position);
-    }
-
-    public void setOnAlarmClickListener(OnAlarmClickListener alarmClickListener) {
-        onAlarmClickListener = alarmClickListener;
+        void onAlarmClick (int position);
     }
 
     public MyAlarmRecyclerViewAdapter (ArrayList<Alarm> alarms) {
         mAlarms = alarms;
+    }
+
+    public void setOnAlarmClickListener (OnAlarmClickListener alarmClickListener) {
+        onAlarmClickListener = alarmClickListener;
     }
 
     @Override
@@ -44,25 +39,9 @@ public class MyAlarmRecyclerViewAdapter extends RecyclerView.Adapter<MyAlarmRecy
 
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {
-//        holder.mItem = mValues.get(position);
-        holder.alarm = mAlarms.get(position);
-
-//        holder.mIdView.setText(mValues.get(position).id);
-//        holder.mContentView.setText(mValues.get(position).content);
-//        holder.imageMedication.setImage...(mAlarms.get(position).get);
-
-//        holder.tvScheduleTitle.setText(mAlarms.get(position).getTitle());
-//        holder.tvDescription.setText(mAlarms.get(position).getDescription());
-//        holder.textInputEditTextStartTime.setText(mAlarms.get(position).getStartTime());
-//        holder.switchSchedule.setChecked(mAlarms.get(position).getAlarmStatus());
-
-        Alarm currentAlarm = mAlarms.get(position);
-        holder.alarmBinding.setAlarm(currentAlarm);
+        holder.theAlarm = mAlarms.get(position);
+        holder.alarmBinding.setAlarm(holder.theAlarm);
         holder.alarmBinding.executePendingBindings();
-
-//        currentAlarm = getItem(position);
-//        binding.setAlarm(currentAlarm);
-//        binding.executePendingBindings();
 
     }
 
@@ -72,37 +51,29 @@ public class MyAlarmRecyclerViewAdapter extends RecyclerView.Adapter<MyAlarmRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        public final TextView mIdView;
-//        public final TextView mContentView;
-//        public PlaceholderItem mItem;
 
-        public ImageView imageMedication;
-        public TextView tvScheduleTitle;
-        public TextView tvDescription;
-        public TextInputEditText textInputEditTextStartTime;
-        public SwitchMaterial switchSchedule;
-
-        public Alarm alarm;
-
+        public Alarm theAlarm;
         public AlarmBinding alarmBinding;
 
         public ViewHolder (AlarmBinding binding, final OnAlarmClickListener alarmClickListener) {
             super(binding.getRoot());
-            imageMedication = binding.imageAlarmThumbnail;
-            tvScheduleTitle = binding.textviewScheduleTitle;
-            tvDescription = binding.textviewDescription;
-            textInputEditTextStartTime = binding.editStartTime;
-            switchSchedule = binding.switchSchedule;
             alarmBinding = binding;
 
-//            mIdView = binding.itemNumber;
-//            mContentView = binding.content;
+            alarmBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick (View view) {
+                    if (alarmClickListener != null) {
+                        int position = getBindingAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION)
+                            alarmClickListener.onAlarmClick(position);
+                    }
+                }
+            });
         }
 
         @Override
         public String toString () {
-//            return super.toString() + " '" + mContentView.getText() + "'";
-            return super.toString() + " '" + tvScheduleTitle.getText() + "'";
+            return super.toString() + " '" + alarmBinding.textviewScheduleTitle.getText() + "'";
         }
     }
 }

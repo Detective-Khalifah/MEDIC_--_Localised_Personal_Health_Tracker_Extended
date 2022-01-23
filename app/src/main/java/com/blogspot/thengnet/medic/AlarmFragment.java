@@ -1,27 +1,37 @@
 package com.blogspot.thengnet.medic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.blogspot.thengnet.medic.placeholder.PlaceholderContent;
+import android.widget.Toast;
+import com.blogspot.thengnet.medic.databinding.FragmentAlarmListBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A fragment representing a list of Items.
  */
 public class AlarmFragment extends Fragment {
 
-    static ArrayList<Alarm> alarms;
+    private ArrayList<Alarm> alarms;
+
+    private Bundle mSelectedAlarmParams;
+    private ArrayList<String> mSelectedAlarmParamsList;
+    private FragmentAlarmListBinding binding;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -57,17 +67,28 @@ public class AlarmFragment extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
+        binding = FragmentAlarmListBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+//        return inflater.inflate(R.layout.fragment_alarm_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated (@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (binding == null) {
+            binding = FragmentAlarmListBinding.bind(view);
+        }
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+//        if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = (RecyclerView) binding.list;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
             alarms = new ArrayList<>();
 
             Alarm testSched0 = new Alarm(true, false,  "Vitamin supplement", "1 pill", "2017-12-01", "09:00", "2021-12-10", "10:00");
@@ -79,9 +100,49 @@ public class AlarmFragment extends Fragment {
             alarms.add(testSched2);
             alarms.add(testSched3);
 
-//            recyclerView.setAdapter(new MyAlarmRecyclerViewAdapter(PlaceholderContent.ITEMS));
-            recyclerView.setAdapter(new MyAlarmRecyclerViewAdapter(alarms));
+            MyAlarmRecyclerViewAdapter adapter = new MyAlarmRecyclerViewAdapter(alarms);
+
+            recyclerView.setAdapter(adapter);
+
+            mSelectedAlarmParams = new Bundle();
+
+            adapter.setOnAlarmClickListener(new MyAlarmRecyclerViewAdapter.OnAlarmClickListener() {
+                @Override
+                public void onAlarmClick (int position) {
+                    /**
+                     * Dummy data to send to {@link EditAlarmActivity}
+                     * TODO: set up a database to contain the data, and use id to fetch data from it
+                     * instead of passing the data from here
+                     */
+                    mSelectedAlarmParamsList = new ArrayList<>();
+                    mSelectedAlarmParamsList.addAll(Collections.singleton(alarms.toString()));
+//                mSelectedScheduleParamsList.add(binding.listviewSchedules.getChildAt(position).toString()); // id of the selected CardView
+                    mSelectedAlarmParamsList.add( recyclerView.getChildAt(position).toString());
+
+                    Alarm selectedAlarm = alarms.get(position);
+                    mSelectedAlarmParams.putStringArray("selected-alarm", new String[]{
+                                    selectedAlarm.getTitle(), selectedAlarm.getDescription(),
+                                    selectedAlarm.getStartDate(), selectedAlarm.getStartTime(),
+                                    selectedAlarm.getEndDate(), selectedAlarm.getEndTime()
+                            }
+                    );
+                    Log.v(AlarmFragment.this.getClass().getName(), "List item " + position + " clicked!!!");
+//                    Snackbar.make(row, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+                    Toast.makeText(AlarmFragment.this.getContext(), "List item " + position + " clicked.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(AlarmFragment.this.getContext(), EditAlarmActivity.class).putExtras(mSelectedAlarmParams));
+//                    finish();
+                }
+            });
+
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick (View view) {
+                    Snackbar.make(view, "Phase 2 Task: Add scheduled alarm", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    startActivity(new Intent(AlarmFragment.this.getContext(), EditAlarmActivity.class).putExtras(mSelectedAlarmParams));
+                }
+            });
         }
-        return view;
     }
-}
+
