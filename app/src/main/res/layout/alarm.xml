@@ -16,15 +16,20 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:descendantFocusability="blocksDescendants"
+        android:layout_marginStart="@dimen/cards_margin"
+        android:layout_marginTop="@dimen/cards_margin"
+        android:layout_marginEnd="@dimen/cards_margin"
+        android:layout_marginBottom="@dimen/cards_margin"
         android:checkable="true"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="true"
         app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/image_alarm_thumbnail"
@@ -39,18 +44,18 @@
                 app:srcCompat="@android:drawable/ic_menu_day" />
 
             <TextView
-                android:id="@+id/textview_schedule_title"
+                android:id="@+id/textview_medication_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:clickable="false"
+                android:ellipsize="end"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:textIsSelectable="false"
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="@{alarm.title}"
+                android:text="@{alarm.medicationTitle}"
+                android:textIsSelectable="false"
                 app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
                 app:layout_constraintRight_toLeftOf="@id/switch_schedule"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +67,7 @@
                 android:orientation="vertical"
                 app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
                 app:layout_constraintRight_toLeftOf="@id/switch_schedule"
-                app:layout_constraintTop_toBottomOf="@id/textview_schedule_title">
+                app:layout_constraintTop_toBottomOf="@id/textview_medication_title">
 
                 <LinearLayout
                     android:id="@+id/linear_start"
@@ -92,14 +97,14 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textview_description"
+                android:id="@+id/textview_medication_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:textIsSelectable="false"
                 android:text="@{alarm.description}"
+                android:textIsSelectable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
                 app:layout_constraintTop_toBottomOf="@id/linear_date_time" />
@@ -109,9 +114,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{alarm.alarmStatus}"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_schedule_title"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_medication_title"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="4dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

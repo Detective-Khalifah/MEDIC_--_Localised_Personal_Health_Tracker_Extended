@@ -6,23 +6,23 @@ public class Alarm {
     //  suitable Date format later.
     private boolean isDay;
     private boolean alarmStatus;
-    private String title;
+    private String medicationTitle;
     private String description;
     private String startDate;
+    private String stopDate;
     private String startTime;
-    private String endDate;
-    private String endTime;
+    private int administrationPerDay;
 
-    public Alarm (boolean isDay, boolean alarmStatus, String title, String description, String startDate,
-                     String startTime, String endDate, String endTime) {
+    public Alarm (boolean isDay, boolean alarmStatus, String medicationTitle, String description, String startDate,
+                  String startTime, String stopDate, int administrationPerDay) {
         this.isDay = isDay;
         this.alarmStatus = alarmStatus;
-        this.title = title;
+        this.medicationTitle = medicationTitle;
         this.description = description;
         this.startDate = startDate;
         this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
+        this.stopDate = stopDate;
+        this.administrationPerDay = administrationPerDay;
     }
 
     public boolean isDay () {
@@ -41,12 +41,12 @@ public class Alarm {
         this.alarmStatus = alarmStatus;
     }
 
-    public String getTitle () {
-        return title;
+    public String getMedicationTitle () {
+        return medicationTitle;
     }
 
-    public void setTitle (String title) {
-        this.title = title;
+    public void setMedicationTitle (String medicationTitle) {
+        this.medicationTitle = medicationTitle;
     }
 
     public String getDescription () {
@@ -73,20 +73,20 @@ public class Alarm {
         this.startTime = startTime;
     }
 
-    public String getEndDate () {
-        return endDate;
+    public String getStopDate () {
+        return stopDate;
     }
 
-    public void setEndDate (String endDate) {
-        this.endDate = endDate;
+    public void setStopDate (String stopDate) {
+        this.stopDate = stopDate;
     }
 
-    public String getEndTime () {
-        return endTime;
+    public int getAdministrationPerDay () {
+        return administrationPerDay;
     }
 
-    public void setEndTime (String endTime) {
-        this.endTime = endTime;
+    public void setAdministrationPerDay (int administrationPerDay) {
+        this.administrationPerDay = administrationPerDay;
     }
 
 }

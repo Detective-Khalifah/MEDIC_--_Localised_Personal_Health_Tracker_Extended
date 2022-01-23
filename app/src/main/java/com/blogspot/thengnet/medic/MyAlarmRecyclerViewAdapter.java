@@ -73,7 +73,7 @@ public class MyAlarmRecyclerViewAdapter extends RecyclerView.Adapter<MyAlarmRecy
 
         @Override
         public String toString () {
-            return super.toString() + " '" + alarmBinding.textviewScheduleTitle.getText() + "'";
+            return super.toString() + " '" + alarmBinding.textviewMedicationTitle.getText() + "'";
         }
     }
 }

@@ -80,7 +80,6 @@ public class AlarmFragment extends Fragment {
         }
 
         // Set the adapter
-//        if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) binding.list;
             if (mColumnCount <= 1) {
@@ -91,10 +90,10 @@ public class AlarmFragment extends Fragment {
 
             alarms = new ArrayList<>();
 
-            Alarm testSched0 = new Alarm(true, false,  "Vitamin supplement", "1 pill", "2017-12-01", "09:00", "2021-12-10", "10:00");
-            Alarm testSched1 = new Alarm(true, true, "Blood tonic", "20 ml", "2021-07-02", "11:00", "2021-07-30", "09:00");
-            Alarm testSched2 = new Alarm(true, false,"Exercise", "Daily jogging exercise.", "2020-05-01", "06:00", "2020-05-30", "06:30");
-            Alarm testSched3 = new Alarm(false, true,"Apple", "1", "2021-02-20", "21:45", "2021-04-30", "22:00");
+            Alarm testSched0 = new Alarm(true, false,  "Vitamin supplement", "1 pill", "2017-12-01", "09:00", "2021-12-10", 4);
+            Alarm testSched1 = new Alarm(true, true, "Blood tonic", "20 ml", "2021-07-02", "11:00", "2021-07-30", 3);
+            Alarm testSched2 = new Alarm(true, false,"Exercise", "Daily jogging exercise.", "2020-05-01", "06:00", "2020-05-30", 6);
+            Alarm testSched3 = new Alarm(false, true,"Apple", "1", "2021-02-20", "21:45", "2021-04-30", 2);
             alarms.add(testSched0);
             alarms.add(testSched1);
             alarms.add(testSched2);
@@ -121,9 +120,9 @@ public class AlarmFragment extends Fragment {
 
                     Alarm selectedAlarm = alarms.get(position);
                     mSelectedAlarmParams.putStringArray("selected-alarm", new String[]{
-                                    selectedAlarm.getTitle(), selectedAlarm.getDescription(),
+                                    selectedAlarm.getMedicationTitle(), selectedAlarm.getDescription(),
                                     selectedAlarm.getStartDate(), selectedAlarm.getStartTime(),
-                                    selectedAlarm.getEndDate(), selectedAlarm.getEndTime()
+                                    selectedAlarm.getStopDate(), String.valueOf(selectedAlarm.getAdministrationPerDay())
                             }
                     );
                     Log.v(AlarmFragment.this.getClass().getName(), "List item " + position + " clicked!!!");
