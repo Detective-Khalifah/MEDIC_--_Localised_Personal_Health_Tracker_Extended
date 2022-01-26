@@ -14,6 +14,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.MEDIC.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +55,11 @@
             android:name=".data.CalendarProvider"
             android:authorities="com.blogspot.thengnet.medic"
             android:exported="false" />
+
+        <service
+            android:name=".sync.AlarmReminderIntentService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

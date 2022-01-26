@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/croot"
@@ -9,18 +8,18 @@
     android:fitsSystemWindows="true"
     tools:context=".AlarmFragment">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/list"
-    android:name="com.blogspot.thengnet.medic.AlarmFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:clickable="false"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
-    app:layoutManager="LinearLayoutManager"
-    tools:listitem="@layout/fragment_alarm" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.blogspot.thengnet.medic.AlarmFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/fragment_alarm" />
 
     <ProgressBar
         android:id="@+id/progressbar_alarms"
@@ -41,5 +40,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <Button
+        android:id="@+id/button_test_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Test Notification" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

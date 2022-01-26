@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.blogspot.thengnet.medic.databinding.FragmentAlarmListBinding;
+import com.blogspot.thengnet.medic.utilities.NotificationUtil;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -142,6 +143,12 @@ public class AlarmFragment extends Fragment {
                     startActivity(new Intent(AlarmFragment.this.getContext(), EditAlarmActivity.class).putExtras(mSelectedAlarmParams));
                 }
             });
+
+            binding.buttonTestNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+                    NotificationUtil.notifyUserToTakeMeds(AlarmFragment.this.getContext());
+                }
+            });
         }
     }
-
