@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/croot"
+    android:id="@+id/constraint_appointments"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AlarmFragment">
+    tools:context=".AppointmentsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:name="com.blogspot.thengnet.medic.AlarmFragment"
+        android:id="@+id/recycler_appointments"
+        android:name="com.blogspot.thengnet.medic.AppointmentsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
@@ -19,10 +19,10 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_alarm" />
+        tools:listitem="@layout/appointment" />
 
     <ProgressBar
-        android:id="@+id/progressbar_alarms"
+        android:id="@+id/progressbar_appointments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_appointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"

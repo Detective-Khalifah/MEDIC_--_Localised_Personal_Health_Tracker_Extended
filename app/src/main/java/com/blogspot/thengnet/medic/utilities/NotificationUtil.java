@@ -30,8 +30,7 @@ public class NotificationUtil {
     }
 
     /**
-     * This method creates a notification that will remind the user to take their scheduled medicine.
-     *
+     * This method creates a notification to remind the user to take their scheduled medicine.
      * @param context of the app
      */
     public static void notifyUserToTakeMeds (Context context) {

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blogspot.thengnet.medic">
 
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MEDIC">
-
+        <activity
+            android:name=".EditAppointmentActivity"
+            android:exported="true" />
+        <!-- ============================================================== -->
+        <!-- Alarm components. -->
+        <!-- ============================================================== -->
+        <activity
+            android:name=".google.alarms.AlarmActivity"
+            android:directBootAware="true"
+            android:excludeFromRecents="true"
+            android:resizeableActivity="false"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -22,7 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SettingsActivity"
             android:exported="true"
@@ -32,8 +47,7 @@
             android:exported="true" />
         <activity
             android:name=".EditAlarmActivity"
-            android:exported="true" />
-        <!-- android:theme="@style/Theme.MEDIC.NoActionBar" /> -->
+            android:exported="true" /> <!-- android:theme="@style/Theme.MEDIC.NoActionBar" /> -->
         <activity
             android:name=".SignInActivity"
             android:exported="true"
@@ -49,17 +63,30 @@
 
         <provider
             android:name=".data.AlarmProvider"
-            android:authorities="com.blogspot.thengnet.medic"
+            android:authorities="com.blogspot.thengnet.medic.data.AlarmProvider"
             android:exported="false" />
         <provider
-            android:name=".data.CalendarProvider"
-            android:authorities="com.blogspot.thengnet.medic"
+            android:name=".data.AppointmentProvider"
+            android:authorities="com.blogspot.thengnet.medic.data.AppointmentProvider"
             android:exported="false" />
 
         <service
             android:name=".sync.AlarmReminderIntentService"
             android:exported="false" />
+        <service
+            android:name=".services.AlarmService"
+            android:exported="false" />
 
+        <receiver
+            android:name=".receivers.AlarmBroadcastReceiver"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

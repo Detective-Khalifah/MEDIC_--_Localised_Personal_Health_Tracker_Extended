@@ -3,17 +3,25 @@
     android:summary="@string/settings_summary"
     android:title="@string/news_settings_menu_title">
 
-    <PreferenceCategory android:title="@string/alarm_header">
+    <ListPreference
+        android:key="@string/settings_hour_format_key"
+        android:defaultValue="@string/hour_format_12_label"
+        android:entries="@array/hour_format_labels"
+        android:entryValues="@array/hour_format_keys"
+        android:title="@string/settings_hour_format_label"/>
+
+    <PreferenceCategory android:title="@string/settings_alarm_header">
 
         <SeekBarPreference
             android:defaultValue="10"
             android:max="100"
-            android:title="@string/alarm_volume">
+            android:key="@string/settings_alarm_volume_key"
+            android:title="@string/settings_alarm_volume_label">
 
         </SeekBarPreference>
 
         <ListPreference
-            android:defaultValue="@string/one_min"
+            android:defaultValue="@string/one_min_label"
             android:entries="@array/alarm_ring_duration_labels"
             android:entryValues="@array/alarm_ring_duration_keys"
             android:key="@string/settings_alarm_ring_duration_key"
@@ -25,12 +33,12 @@
         <SeekBarPreference
             android:defaultValue="10"
             android:max="100"
-            android:title="@string/reminder_volume">
+            android:title="@string/settings_reminder_volume_label">
 
         </SeekBarPreference>
 
         <ListPreference
-            android:defaultValue="@string/one_min"
+            android:defaultValue="@string/one_min_label"
             android:entries="@array/calendar_reminder_duration_labels"
             android:entryValues="@array/calendar_reminder_duration_keys"
             android:key="@string/settings_calendar_reminder_duration_key"
@@ -39,16 +47,16 @@
     </PreferenceCategory>
 
     <ListPreference
-        android:defaultValue="@string/lang_english"
+        android:defaultValue="@string/lang_english_label"
         android:entries="@array/language_labels"
         android:entryValues="@array/language_keys"
         android:key="@string/settings_language_key"
         android:title="Language" />
 
     <ListPreference
-        android:defaultValue="@string/five_mins"
-        android:entries="@array/snooze_length_keys"
-        android:entryValues="@array/snooze_length_labels"
+        android:defaultValue="@string/five_mins_label"
+        android:entries="@array/snooze_length_labels"
+        android:entryValues="@array/snooze_length_keys"
         android:key="@string/settings_snooze_length_key"
         android:title="Snooze Length" />
 

@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 
 public class AlarmProvider extends ContentProvider {
 
-    private final static int ALARMS = 1;
-    private final static int ALARM_ID = 11;
+    private final static int ALARMS = 257;
+    private final static int ALARM_ID = 254;
     private static UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -47,7 +47,7 @@ public class AlarmProvider extends ContentProvider {
             case ALARMS:
                 table = theDb.query(AlarmContract.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
-                // Register notifier on cursor object
+                // Register notifier on Cursor Object
                 table.setNotificationUri(getContext().getContentResolver(), uri);
 
                 return table;
@@ -57,12 +57,12 @@ public class AlarmProvider extends ContentProvider {
                 table = theDb.query(AlarmContract.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
 
-                // Register notifier on cursor object
+                // Register notifier on Cursor Object
                 table.setNotificationUri(getContext().getContentResolver(), uri);
 
                 return table;
             default:
-                throw new IllegalArgumentException("Content URI is unknown!" + uri);
+                throw new IllegalArgumentException("Content URI \"" + uri + " is unknown!");
         }
     }
 
@@ -74,24 +74,37 @@ public class AlarmProvider extends ContentProvider {
 
     @Override
     public Uri insert (Uri uri, ContentValues contentValues) {
-        String alarmLabel = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_LABEL);
+        String alarmTitle = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE);
+        int alarmState = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE);
+        String administrationForm = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM);
         String alarmStartDate = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE);
-        String alarmEndDate = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE);
-        int alarmStatus = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_STATUS);
+        String alarmStopDate = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE);
         String alarmTime = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME);
-        int alarmRepeatStatus = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATUS);
-        String alarmRepeatDates = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_DATES);
-        int alarmVibrateStatus = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT);
-        String alarmTone =  contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TONE);
+        String administrationPerDay = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_PER_DAY);
+        String alarmTone = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TONE);
+        int alarmVibrateState = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT);
+        int alarmRepeatState = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATE);
 
-        if (alarmLabel == null)
-            throw new IllegalArgumentException("Alarm label is missing!");
-        if (alarmStartDate == null)
-            throw new IllegalArgumentException("Alarm start date missing!");
-        if (alarmEndDate == null)
-            throw new IllegalArgumentException("Alarm end date missing!");
-        if (alarmTime == null)
+        if (alarmTitle == null || alarmTitle.equals(""))
+            throw new IllegalArgumentException("Alarm Title is missing!");
+        if (alarmState != 0 && alarmState != 1)
+            throw new IllegalArgumentException("Alarm State is missing!");
+        if (administrationForm == null || administrationForm.equals(""))
+            throw new IllegalArgumentException("Administration Form missing");
+        if (alarmStartDate == null || alarmStartDate.equals(""))
+            throw new IllegalArgumentException("Alarm Start Date missing!");
+        if (alarmStopDate == null || alarmStopDate.equals(""))
+            throw new IllegalArgumentException("Alarm Stop Date missing!");
+        if (alarmTime == null || alarmTime.equals(""))
             throw new IllegalArgumentException("Alarm time missing!");
+        if (administrationPerDay == null || administrationPerDay.equals(""))
+            throw new IllegalArgumentException("Administration Per Day missing!");
+        if (alarmTone == null || alarmTone.equals(""))
+            throw new IllegalArgumentException("Alarm Tone missing!");
+        if (alarmVibrateState != 0 && alarmVibrateState != 1)
+            throw new IllegalArgumentException("Alarm Vibration State is missing!");
+        if (alarmRepeatState != 0 && alarmRepeatState != 1)
+            throw new IllegalArgumentException("Alarm Repeat State is missing!");
 
         final int UriType = sUriMatcher.match(uri);
         switch (UriType) {
@@ -120,7 +133,7 @@ public class AlarmProvider extends ContentProvider {
                 throw new IllegalArgumentException("DELETE Content uri unknown!");
         }
         if (rowsDeleted > 0) {
-            // Notify the cursor loader when the cursor data has changed due to a delete query
+            // Notify the CursorLoader when the Cursor data has changed due to a delete query
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
@@ -143,7 +156,7 @@ public class AlarmProvider extends ContentProvider {
     }
 
     private Uri addAlarm (Uri uri, ContentValues values) {
-        // Notify the cursor loader when the cursor data has changed when a note is added
+        // Notify the CursorLoader when the Cursor data has changed when an Alarm is added
         getContext().getContentResolver().notifyChange(uri, null);
 
         long id = mMedicDbHelper.getWritableDatabase().insert(AlarmContract.TABLE_NAME,
@@ -152,57 +165,62 @@ public class AlarmProvider extends ContentProvider {
     }
 
     private int updateAlarm (Uri uri, ContentValues updateValues, String whereClause,
-                            String[] whereArg) {
+                             String[] whereArg) {
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE)) {
+            String alarmTitle = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE);
+            if (alarmTitle == null || alarmTitle.equals(""))
+                throw new IllegalArgumentException("Alarm Title passed but not updated!");
+        }
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE)) {
+            int alarmState = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE);
+            if (!(alarmState == 0 || alarmState == 1))
+                throw new IllegalArgumentException("Alarm Active State passed, but as a null value!");
+        }
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM)) {
+            String administrationForm = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM);
+            if (administrationForm == null || administrationForm.equals(""))
+                throw new IllegalArgumentException("Administration Form passed, but as a null value!");
+        }
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE)) {
             String alarmStartDate = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE);
             if (alarmStartDate == null || alarmStartDate.equals(""))
-                throw new IllegalArgumentException("Alarm start date passed but not updated!");
+                throw new IllegalArgumentException("Alarm Start Date passed but not updated!");
         }
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE)) {
-            String alarmEndDate = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE);
-            if (alarmEndDate == null || alarmEndDate.equals(""))
-                throw new IllegalArgumentException("Alarm end date passed but not updated!");
-        }
-        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_LABEL)) {
-            String alarmLabel = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_LABEL);
-            if (alarmLabel == null || alarmLabel.equals(""))
-                throw new IllegalArgumentException("Alarm label passed but not updated!");
+            String alarmStopDate = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE);
+            if (alarmStopDate == null || alarmStopDate.equals(""))
+                throw new IllegalArgumentException("Alarm Stop Date passed but not updated!");
         }
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME)) {
             String alarmTime = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME);
             if (alarmTime == null || alarmTime.equals(""))
                 throw new IllegalArgumentException("Alarm Time passed, but as a null value!");
         }
-        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_STATUS)) {
-            int alarmStatus = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_STATUS);
-            if (!(alarmStatus == 0 || alarmStatus == 1))
-                throw new IllegalArgumentException("Alarm Active Status passed, but as a null value!");
-        }
-        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATUS)) {
-            int alarmRepeatStatus = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATUS);
-            if (!(alarmRepeatStatus == 0 || alarmRepeatStatus == 1))
-                throw new IllegalArgumentException("Alarm Repeat Status passed, but as a null value!");
-        }
-        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_DATES)) {
-            String[] alarmRepeatDates = (String[]) updateValues.get(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_DATES);
-            if (alarmRepeatDates == null || alarmRepeatDates.length == 0)
-                throw new IllegalArgumentException("Alarm Repeat Date(s) passed, but as an empty/null value!");
-        }
-        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT)) {
-            int alarmVibrateStatus = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT);
-            if (!(alarmVibrateStatus == 0 || alarmVibrateStatus == 1))
-                throw new IllegalArgumentException("Alarm Vibration status passed, but as a null value!");
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_PER_DAY)) {
+            String administrationPerDay = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_PER_DAY);
+            if (administrationPerDay == null || administrationPerDay.equals(""))
+                throw new IllegalArgumentException("Alarm Administration Per Day passed, but as an empty/null value!");
         }
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_TONE)) {
             String alarmTone = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TONE);
             if (alarmTone == null || alarmTone.equals(""))
                 throw new IllegalArgumentException("Alarm Tone passed, but as a null value!");
         }
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT)) {
+            int alarmVibrateState = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT);
+            if (!(alarmVibrateState == 0 || alarmVibrateState == 1))
+                throw new IllegalArgumentException("Alarm Vibration state passed, but as a null value!");
+        }
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATE)) {
+            int alarmRepeatState = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATE);
+            if (!(alarmRepeatState == 0 || alarmRepeatState == 1))
+                throw new IllegalArgumentException("Alarm Repeat State passed, but as a null value!");
+        }
 
         int rowsUpdated = mMedicDbHelper.getWritableDatabase().update(AlarmContract.TABLE_NAME,
                 updateValues, whereClause, whereArg);
         if (rowsUpdated > 0) {
-            // Notify the cursor loader when the cursor data has changed when an alarm is updated
+            // Notify the CursorLoader when the Cursor data has changed when an Alarm is updated
             getContext().getContentResolver().notifyChange(uri, null);
         }
         return rowsUpdated;

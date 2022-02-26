@@ -1,67 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Preference Keys & Labels -->
     <string-array name="alarm_ring_duration_keys">
-        <item>@string/one_min</item>
-        <item>@string/three_mins</item>
-        <item>@string/five_mins</item>
-        <item>@string/ten_mins</item>
+        <item>@string/one_min_key</item>
+        <item>@string/three_mins_key</item>
+        <item>@string/five_mins_key</item>
+        <item>@string/ten_mins_key</item>
     </string-array>
     <string-array name="alarm_ring_duration_labels">
-        <item>@string/one_min</item>
-        <item>@string/three_mins</item>
-        <item>@string/five_mins</item>
-        <item>@string/ten_mins</item>
-
+        <item>@string/one_min_label</item>
+        <item>@string/three_mins_label</item>
+        <item>@string/five_mins_label</item>
+        <item>@string/ten_mins_label</item>
     </string-array>
 
     <string-array name="calendar_reminder_duration_keys">
-        <item>@string/one_min</item>
-        <item>@string/three_mins</item>
-        <item>@string/five_mins</item>
-        <item>@string/ten_mins</item>
+        <item>@string/one_min_key</item>
+        <item>@string/three_mins_key</item>
+        <item>@string/five_mins_key</item>
+        <item>@string/ten_mins_key</item>
     </string-array>
     <string-array name="calendar_reminder_duration_labels">
-        <item>@string/one_min</item>
-        <item>@string/three_mins</item>
-        <item>@string/five_mins</item>
-        <item>@string/ten_mins</item>
+        <item>@string/one_min_label</item>
+        <item>@string/three_mins_label</item>
+        <item>@string/five_mins_label</item>
+        <item>@string/ten_mins_label</item>
     </string-array>
 
     <string-array name="snooze_length_keys">
-        <item>@string/one_min</item>
-        <item>@string/three_mins</item>
-        <item>@string/five_mins</item>
-        <item>@string/ten_mins</item>
+        <item>@string/one_min_key</item>
+        <item>@string/three_mins_key</item>
+        <item>@string/five_mins_key</item>
+        <item>@string/ten_mins_key</item>
     </string-array>
     <string-array name="snooze_length_labels">
-        <item>@string/one_min</item>
-        <item>@string/three_mins</item>
-        <item>@string/five_mins</item>
-        <item>@string/ten_mins</item>
+        <item>@string/one_min_label</item>
+        <item>@string/three_mins_label</item>
+        <item>@string/five_mins_label</item>
+        <item>@string/ten_mins_label</item>
     </string-array>
 
     <string-array name="language_keys">
-        <item>@string/lang_english</item>
-        <item>@string/lang_hausa</item>
-        <item>@string/lang_igbo</item>
-        <item>@string/lang_yoruba</item>
+        <item>@string/lang_english_key</item>
+        <item>@string/lang_hausa_key</item>
+        <item>@string/lang_igbo_key</item>
+        <item>@string/lang_yoruba_key</item>
     </string-array>
-
     <string-array name="language_labels">
-        <item>@string/lang_english</item>
-        <item>@string/lang_hausa</item>
-        <item>@string/lang_igbo</item>
-        <item>@string/lang_yoruba</item>
+        <item>@string/lang_english_label</item>
+        <item>@string/lang_hausa_label</item>
+        <item>@string/lang_igbo_label</item>
+        <item>@string/lang_yoruba_label</item>
     </string-array>
 
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="hour_format_keys">
+        <item>@string/hour_format_12_key</item>
+        <item>@string/hour_format_24_key</item>
+    </string-array>
+    <string-array name="hour_format_labels">
+        <item>@string/hour_format_12_label</item>
+        <item>@string/hour_format_24_label</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="administration_forms">
+        <item>@string/admin_capsule</item>
+        <item>@string/admin_drops</item>
+        <item>@string/admin_inhalant</item>
+        <item>@string/admin_injection</item>
+        <item>@string/admin_ointment</item>
+        <item>@string/admin_solution</item>
+        <item>@string/admin_spray</item>
+        <item>@string/admin_tablet</item>
     </string-array>
+
+    <string-array name="remind_before_appointment_time">
+        <item>@string/remind_1_hour_before</item>
+        <item>@string/remind_2_hours_before</item>
+        <item>@string/remind_5_hours_before</item>
+        <item>@string/remind_1_day_before</item>
+        <item>@string/remind_2_days_before</item>
+        <item>@string/remind_1_week_before</item>
+    </string-array>
+
 </resources>

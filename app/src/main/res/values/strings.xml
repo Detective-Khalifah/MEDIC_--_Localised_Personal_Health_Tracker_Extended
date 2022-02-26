@@ -1,8 +1,29 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">@string/project_title0</string>
     <string name="project_title0">MEDIC</string>
     <string name="project_title1">Localised Personal Health Tracker Extended</string>
     <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="menu_alarm">Alarms</string>
+    <string name="menu_appointment">Appointments</string>
+    <string name="menu_hospital">Locate a Hospital</string>
 
     <string name="welcome">"Welcome !"</string>
 
@@ -28,6 +49,31 @@
     <string name="stop_time">Stop Time</string>
     <string name="img_thumb_desc">Scheduled Time Illustration</string>
 
+    <!-- EditAlarm labels, contentDescriptions,... -->
+    <string name="menu_save_alarm">Save</string>
+    <string name="edit_alarm_found_match">Alarm duplicate found!</string>
+    <string name="edit_alarm_successful_save">Alarm saved and scheduled!</string>
+    <string name="edit_alarm_unsuccessful_save">Alarm could not be saved…</string>
+    <string name="edit_alarm_successful_update">Alarm updated and re-scheduled!</string>
+    <string name="edit_alarm_unsuccessful_update">Alarm could not be updated…</string>
+    <string name="administration_per_day">Administration (per day)</string>
+    <string name="vibrate_state_label">Vibrate</string>
+    <string name="alarm_tone_picker_label">Alarm Tone: %s</string>
+    <string name="select_alarm_tone">Select Alarm Tone</string>
+    <string name="date_f">%2d-%2d-%4d</string>
+
+    <!-- EditAppointment labels, contentDescriptions,... -->
+    <string name="menu_save_appointment">Save</string>
+    <string name="reminder_title">Remind me about</string>
+    <string name="appointment_location">Location</string>
+    <string name="edit_appointment_found_match">Appointment duplicate found!</string>
+    <string name="edit_appointment_successful_save">Appointment saved and scheduled!</string>
+    <string name="edit_appointment_unsuccessful_save">Appointment could not be saved…</string>
+    <string name="edit_appointment_successful_update">Appointment updated and re-scheduled!</string>
+    <string name="edit_appointment_unsuccessful_update">Appointment could not be updated…</string>
+    <string name="repeat">Repeat</string>
+
+
     <string name="action_settings">Settings</string>
     <string name="action_skip">Skip</string>
     <string name="action_view_profile">View Profile</string>
@@ -35,8 +81,16 @@
     <string name="settings_summary">Configurations for...</string>
 
     <!-- USED LOCALLY IN APP TO DETERMINE CONFIG -->
+    <string name="settings_alarm_header">Alarm</string>
+    <string name="settings_alarm_volume_key" translatable="false">alarm_volume_key</string>
+    <string name="settings_alarm_volume_label">Alarm Volume</string>
+
     <string name="settings_alarm_ring_duration_key" translatable="false">alarm_ring_duration</string>
     <string name="settings_alarm_ring_duration_label">Alarm Ring Duration</string>
+
+    <string name="calendar_header">Calendar</string>
+    <string name="settings_reminder_volume_key" translatable="false">reminder_volume_key</string>
+    <string name="settings_reminder_volume_label">Reminder Volume</string>
 
     <string name="settings_calendar_reminder_duration_key" translatable="false">calendar_reminder_duration</string>
     <string name="settings_calendar_reminder_duration_label">Calendar Reminder Duration</string>
@@ -47,47 +101,151 @@
     <string name="settings_snooze_length_key" translatable="false">snooze_length</string>
     <string name="settings_snooze_length_label">Snooze Length</string>
 
-    <string name="alarm_header">Alarm</string>
-    <string name="alarm_volume">Alarm Volume</string>
-    <string name="calendar_header">Calendar</string>
-    <string name="reminder_volume">Reminder Volume</string>
+    <!-- Hour format configuration labels & keys -->
+    <string name="settings_hour_format_key" translatable="false">hour_format_key</string>
+    <string name="settings_hour_format_label">Hour Format</string>
 
-    <string name="menu_alarm">Alarms</string>
-    <string name="menu_appointment">Appointments</string>
-    <string name="menu_hospital">Locate a Hospital</string>
+    <string name="hour_format_12_key" translatable="false">twelve_hours_key</string>
+    <string name="hour_format_12_label">12 Hours</string>
 
-    <string name="one_min">1 minute</string>
-    <string name="three_mins">3 minutes</string>
-    <string name="five_mins">5 minutes</string>
-    <string name="ten_mins">10 minutes</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="hour_format_24_key" translatable="false">twenty_four_hours_key</string>
+    <string name="hour_format_24_label">24 Hours</string>
 
-    <!-- Languages -->
-    <string name="lang_english">English (NG)</string>
-    <string name="lang_hausa">Hausa (NG)</string>
-    <string name="lang_igbo">Igbo (NG)</string>
-    <string name="lang_yoruba">Yoruba (NG)</string>
+    <!-- Time configuration labels & keys -->
+    <string name="one_min_key" translatable="false">one_minute_key</string>
+    <string name="three_mins_key" translatable="false">three_minutes_key</string>
+    <string name="five_mins_key" translatable="false">five_minutes_key</string>
+    <string name="ten_mins_key" translatable="false">ten_minutes_key</string>
+
+    <string name="one_min_label">1 minute</string>
+    <string name="three_mins_label">3 minutes</string>
+    <string name="five_mins_label">5 minutes</string>
+    <string name="ten_mins_label">10 minutes</string>
+
+    <!-- Language configuration labels & keys -->
+    <string name="lang_english_key" translatable="false">english_key</string>
+    <string name="lang_hausa_key" translatable="false">hausa_ng_key</string>
+    <string name="lang_igbo_key" translatable="false">igbo_ng_key</string>
+    <string name="lang_yoruba_key" translatable="false">yoruba_ng_key</string>
+
+    <string name="lang_english_label">English (NG)</string>
+    <string name="lang_hausa_label">Hausa (NG)</string>
+    <string name="lang_igbo_label">Igbo (NG)</string>
+    <string name="lang_yoruba_label">Yoruba (NG)</string>
+
+    <!-- Medication Administration Forms -->
+    <string name="admin_capsule">CAPSULE</string>
+    <string name="admin_drops">DROPS</string> // eye, ear, nasal
+    <string name="admin_inhalant">INHALANT</string>
+    <string name="admin_injection">INJECTION</string>
+    <string name="admin_ointment">OINTMENT</string>
+    <string name="admin_solution">SOLUTION</string> // elixir, syrup
+    <string name="admin_spray">SPRAY</string>
+    <string name="admin_tablet">TABLET</string>
+
+    <!-- First time to remind user of an appointment before appointed time -->
+    <string name="remind_1_hour_before">Remind one hour before appointment</string>
+    <string name="remind_2_hours_before">Remind two hours before appointment</string>
+    <string name="remind_5_hours_before">Remind five hours before appointment</string>
+    <string name="remind_1_day_before">Remind one day before appointment</string>
+    <string name="remind_2_days_before">Remind two days before appointment</string>
+    <string name="remind_1_week_before">Remind one week before appointment</string>
+
+    <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
+
+    <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=15] -->
+    <string name="alarm_alert_off_text">Alarm off</string>
+
+    <!-- Button labels on the alarm dialog: Snooze -->
+    <string name="alarm_alert_snooze_text">Snooze</string>
+
+    <!-- Button labels on the alarm dialog: Dismiss -->
+    <string name="alarm_alert_dismiss_text">Dismiss</string>
+
+    <!-- Alarm Alert screen: this message is shown after an alarm rung
+         unattended for a number of minutes.  It tells the user that
+         the alarm has been silenced.-->
+    <string name="alarm_missed_title">Missed alarm</string>
+    <string name="alarm_missed_text"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
+
+    <!-- The text shown after user snoozed an alerting alarm. The text will be shown
+         together with the number of minutes in two separate lines. For example:
+             Snoozed
+             10 min
+         [CHAR LIMIT=10]
+    -->
+    <string name="alarm_alert_snoozed_text">Snoozed</string>
+
+    <!-- The text shown after user snoozed an alerting alarm. The text will be shown
+         together with the word 'Snoozed' in two separate lines or example:
+             Snoozed
+             10 min
+         [CHAR LIMIT=10]
+    -->
+    <plurals name="alarm_alert_snooze_duration">
+        <!-- Duration for one minute -->
+        <item quantity="one">1 min</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> min</item>
+    </plurals>
+
+    <!-- Toast that appears after Alarm is snoozed from the Alarm
+         dialog. Says the alarm will snooze for xxx minutes.  -->
+    <plurals name="alarm_alert_snooze_set">
+        <!-- Duration for one minute -->
+        <item quantity="one">Snoozing for 1 minute.</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other">Snoozing for <xliff:g id="minutes">%d</xliff:g> minutes.</item>
+    </plurals>
+
+    <!-- Category names for events describe the type of object that was manipulated. -->
+    <string name="category_alarm">Alarm</string>
+
+    <!-- Action names for events describe what type of manipulation was performed. -->
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_hide">Hide</string>
+    <string name="action_snooze">Snooze</string>
+
+    <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
+         be on the right even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_right">Swipe right to dismiss</string>
+    <!-- Text instruction for snooze alarm on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_left">Swipe left to snooze</string>
+    <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+
+    <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
+    <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
+
+    <!-- Text to display when alarm volume is muted. [CHAR LIMIT=50] -->
+    <string name="alarm_volume_muted">Alarm volume muted</string>
+
+    <!-- Text for action that presents a volume control to adjust alarm volume. [CHAR LIMIT=20] -->
+    <string name="unmute_alarm_volume">Unmute</string>
+
+    <!-- Text to display when system default alarm ringtone is silent. [CHAR LIMIT=50] -->
+    <string name="silent_default_alarm_ringtone">Default alarm ringtone is silent</string>
+
+    <!-- Text for action that shows the UI that changes the default alarm ringtone. [CHAR LIMIT=20] -->
+    <string name="change_setting_action">Change</string>
+
+    <!-- Text to display when app notifications are blocked. [CHAR LIMIT=50] -->
+    <string name="app_notifications_blocked">Clock notifications are blocked</string>
+
+    <!-- Label names for events describe the entity responsible for an event. -->
+    <string name="label_deskclock">DeskClock</string>
 
     <string name="nav_header_title">WAZOBIA</string>
     <string name="nav_header_subtitle">Personal Health Tracker (Extended)</string>
     <string name="nav_header_desc">FYP</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_maps">MapsActivity</string>
-    <string name="administration_per_day">Administration (per day)</string>
 </resources>

@@ -7,7 +7,7 @@
 
         <variable
             name="alarm"
-            type="com.blogspot.thengnet.medic.Alarm" />
+            type="com.blogspot.thengnet.medic.data.Alarm" />
     </data>
 
     <!-- TODO: Consider wrapping {@link TextView} inside of {@link TextInputLayout} or make
@@ -44,7 +44,7 @@
                 app:srcCompat="@android:drawable/ic_menu_day" />
 
             <TextView
-                android:id="@+id/textview_medication_title"
+                android:id="@+id/textview_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:clickable="false"
@@ -54,10 +54,10 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="@{alarm.medicationTitle}"
+                android:text="@{alarm.title}"
                 android:textIsSelectable="false"
                 app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
-                app:layout_constraintRight_toLeftOf="@id/switch_schedule"
+                app:layout_constraintRight_toLeftOf="@id/switch_schedule_state"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
@@ -66,8 +66,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
-                app:layout_constraintRight_toLeftOf="@id/switch_schedule"
-                app:layout_constraintTop_toBottomOf="@id/textview_medication_title">
+                app:layout_constraintRight_toLeftOf="@id/switch_schedule_state"
+                app:layout_constraintTop_toBottomOf="@id/textview_title">
 
                 <LinearLayout
                     android:id="@+id/linear_start"
@@ -75,6 +75,22 @@
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
+
+<!--                    <TextClock-->
+<!--                        android:id="@+id/digital_clock"-->
+<!--                        style="@style/display_time"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="?attr/actionBarSize"-->
+<!--                        android:gravity="center"-->
+<!--                        android:includeFontPadding="false"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:textSize="@dimen/big_font_size"-->
+<!--                        app:layout_row="0"-->
+<!--                        app:layout_column="0"-->
+<!--                        app:layout_columnSpan="3"-->
+<!--                        app:layout_gravity="fill_horizontal"-->
+<!--                        android:text="@{alarm.startTime.toString()}" />-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="0dp"
@@ -87,7 +103,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="time"
-                            android:text="@{alarm.startTime}"
+                            android:text="@{alarm.startTime.toString()}"
                             tools:text="05:05:05:005" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -103,18 +119,17 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:text="@{alarm.description}"
                 android:textIsSelectable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
                 app:layout_constraintTop_toBottomOf="@id/linear_date_time" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_schedule"
+                android:id="@+id/switch_schedule_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{alarm.alarmStatus}"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_medication_title"
+                android:checked="@{alarm.alarmState}"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_title"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:paddingTop="4dp"/>

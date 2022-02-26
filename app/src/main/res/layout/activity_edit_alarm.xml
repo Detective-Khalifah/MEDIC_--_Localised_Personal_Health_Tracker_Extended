@@ -4,169 +4,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".EditAlarmActivity">
 
-    <data>
-
-        <variable
-            name="editalarm"
-            type="com.blogspot.thengnet.medic.Alarm" />
-    </data>
-
     <!-- TODO: Consider wrapping {@link TextView} inside of {@link TextInputLayout} or make
-          {@link TextInputEditText} uneditable (via a non-deprcated method)-->
+          {@link TextInputEditText} uneditable (via a non-deprecated method)-->
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        android:checkable="true"
-        app:cardElevation="4dp">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            android:checkable="true"
+            app:cardElevation="4dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image_alarm_thumbnail"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:clickable="false"
-                android:contentDescription="@string/img_thumb_desc"
-                android:focusable="false"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/linear_admin_form"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_alarm_thumbnail"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:clickable="false"
+                    android:contentDescription="@string/img_thumb_desc"
+                    android:focusable="false"
+                    app:srcCompat="@android:drawable/ic_menu_day" />
+
+                <Spinner
+                    android:id="@+id/spinner_administration_form"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/administration_forms" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/reminder_title"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    app:layout_constraintLeft_toRightOf="@id/linear_admin_form"
+                    app:layout_constraintRight_toLeftOf="@id/switch_schedule_state"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_schedule_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:inputType="text|textAutoComplete"
+                        tools:text="Daily Exercise" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_date_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@id/linear_admin_form"
+                    app:layout_constraintRight_toLeftOf="@id/switch_schedule_state"
+                    app:layout_constraintTop_toBottomOf="@id/layout_title">
+<!--                    app:layout_constraintBottom_toTopOf="@id/linear_tone_vib"-->
+<!--                    botbot="@id/linear_admin_form-->
+
+                    <LinearLayout
+                        android:id="@+id/linear_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/start_date">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_start_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="date|none"
+                                tools:text="2021-06-30" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/stop_date">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_stop_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="date|none"
+                                tools:text="2022-02-01" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/start_time">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_start_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="time|none"
+                                tools:text="05:05:05:005" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Spinner
+                            android:id="@+id/spinner_administration_per_day"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:entries="@array/administration_forms" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_tone_vib"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/linear_admin_form">
+
+                    <!-- TODO: Add default length for the ringtone picker -->
+                    <!-- TODO: Find & replace picker with appropriate View -->
+                    <TextView
+                        android:id="@+id/textview_alarm_tone_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/alarm_tone_picker_label"
+                        tools:text="(Default)" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_vibrate_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vibrate_state_label" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repeat" />
+
+                </LinearLayout>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_schedule_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/layout_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/editor_snackbar_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_day" />
+                app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/textview_medication_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@{editalarm.medicationTitle}"
-                app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
-                app:layout_constraintRight_toLeftOf="@id/switch_schedule"
-                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:id="@+id/linear_date_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@id/textview_medication_description"
-                app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
-                app:layout_constraintRight_toLeftOf="@id/switch_schedule"
-                app:layout_constraintTop_toBottomOf="@id/textview_medication_title">
-
-                <LinearLayout
-                    android:id="@+id/linear_start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/start_date">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_start_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:inputType="date|none"
-                            android:text="@{editalarm.startDate}"
-                            tools:text="2021-06-30" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/stop_date">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_stop_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:inputType="time"
-                            android:text="@{editalarm.stopDate}"
-                            tools:text="2022-02-01" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_stop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/start_time">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_start_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:inputType="date|none"
-                            android:text="@{editalarm.startTime}"
-                            tools:text="05:05:05:005" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/administration_per_day">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_administration_per_day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:inputType="numberDecimal"
-                            tools:text="quaque in die" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textview_medication_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{editalarm.description}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/image_alarm_thumbnail"
-                app:layout_constraintTop_toBottomOf="@id/linear_date_time" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_schedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_medication_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:paddingTop="4dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

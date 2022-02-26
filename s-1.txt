@@ -1,0 +1,21 @@
+C:\Users\Khalifa\AndroidStudioProjects\MEDIC>keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
+Enter keystore password:
+Alias name: androiddebugkey
+Creation date: 2 Jul 2020
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: C=US, O=Android, CN=Android Debug
+Issuer: C=US, O=Android, CN=Android Debug
+Serial number: 1
+Valid from: Thu Jul 02 06:14:53 WAT 2020 until: Sat Jun 25 06:14:53 WAT 2050
+Certificate fingerprints:
+         SHA1: B1:89:30:C5:C2:78:FE:F6:BA:40:1D:AA:31:4E:A3:67:BC:A3:46:DF
+         SHA256: 95:61:6A:65:80:C5:48:25:0F:EC:19:06:46:B7:D2:48:75:40:A1:7D:3F:25:FD:5D:A0:BE:CB:37:92:9C:E3:3D
+Signature algorithm name: SHA1withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 1
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore
+ C:\Users\Khalifa\.android\debug.keystore -destkeystore C:\Users\Khalifa\.android\debug.keystore -deststoretype pkcs12".

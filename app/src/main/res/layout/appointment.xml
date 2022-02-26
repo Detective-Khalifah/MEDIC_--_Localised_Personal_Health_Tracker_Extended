@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="appointment"
+            type="com.blogspot.thengnet.medic.data.Appointment" />
+    </data>
+
+    <!-- TODO: Consider wrapping {@link TextView} inside of {@link TextInputLayout} or make
+          {@link TextInputEditText} uneditable (via a non-deprecated method)-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/cards_margin"
+        android:layout_marginTop="@dimen/cards_margin"
+        android:layout_marginEnd="@dimen/cards_margin"
+        android:layout_marginBottom="@dimen/cards_margin"
+        android:checkable="true"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="true"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <!-- TODO: add hospital/clinic/nav icon here -->
+            <ImageView
+                android:id="@+id/image_appointment_thumbnail"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_help" />
+
+            <TextView
+                android:id="@+id/textview_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@{appointment.title}"
+                tools:text="Monthly Appointment"
+                android:textIsSelectable="false"
+                app:layout_constraintLeft_toRightOf="@id/image_appointment_thumbnail"
+                app:layout_constraintRight_toLeftOf="@id/switch_reminder_state"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linear_date_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toRightOf="@id/image_appointment_thumbnail"
+                app:layout_constraintRight_toLeftOf="@id/switch_reminder_state"
+                app:layout_constraintTop_toBottomOf="@id/textview_title">
+
+                <LinearLayout
+                    android:id="@+id/linear_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!--                    <TextClock-->
+                    <!--                        android:id="@+id/digital_clock"-->
+                    <!--                        style="@style/display_time"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="?attr/actionBarSize"-->
+                    <!--                        android:gravity="center"-->
+                    <!--                        android:includeFontPadding="false"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:textSize="@dimen/big_font_size"-->
+                    <!--                        app:layout_row="0"-->
+                    <!--                        app:layout_column="0"-->
+                    <!--                        app:layout_columnSpan="3"-->
+                    <!--                        app:layout_gravity="fill_horizontal"-->
+                    <!--                        android:text="@{appointment.startTime.toString()}" />-->
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/start_time">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_start_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="time"
+                            android:text="@{appointment.reminderTime.toString()}"
+                            tools:text="05:05:05:005" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_appointment_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textIsSelectable="false"
+                tools:text="Location: Barau Dikko Teaching Hospital"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/image_appointment_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/linear_date_time" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_reminder_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{appointment.reminderState}"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_title"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="4dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
