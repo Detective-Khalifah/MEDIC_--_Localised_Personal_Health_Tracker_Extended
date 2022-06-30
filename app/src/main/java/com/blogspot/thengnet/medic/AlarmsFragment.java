@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 import com.blogspot.thengnet.medic.data.AlarmContract;
 import com.blogspot.thengnet.medic.data.AlarmsCursorRecyclerAdapter;
 import com.blogspot.thengnet.medic.databinding.FragmentAlarmsBinding;
-import com.blogspot.thengnet.medic.google.alarms.AlarmActivity;
-import com.blogspot.thengnet.medic.utilities.NotificationUtil;
+import com.blogspot.thengnet.medic.utilities.AlarmScheduler;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
@@ -36,7 +35,7 @@ public class AlarmsFragment extends Fragment implements LoaderManager.LoaderCall
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final int ALARMS_LOADER_ID = 10;
-    private static Context mContext;
+    private Context mContext;
     private AlarmsCursorRecyclerAdapter mAlarmsCursorAdapter;
     private FragmentAlarmsBinding mBinding;
     // TODO: Customize parameters
@@ -46,7 +45,8 @@ public class AlarmsFragment extends Fragment implements LoaderManager.LoaderCall
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
      * screen orientation changes).
      */
-    public AlarmsFragment () {}
+    public AlarmsFragment () {
+    }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -98,11 +98,24 @@ public class AlarmsFragment extends Fragment implements LoaderManager.LoaderCall
         mAlarmsCursorAdapter.setOnAlarmClickListener(new AlarmsCursorRecyclerAdapter.OnAlarmClickListener() {
             @Override
             public void onAlarmClick (int position, long id) {
-                Log.v(LOG_TAG, "Item position: " + position + "\nId: " + id);
-                startActivity(new Intent(mContext, EditAlarmActivity.class).setData(
-                        ContentUris.withAppendedId(AlarmContract.AlarmEntry.CONTENT_URI, id)));
+                Log.v(LOG_TAG, "Alarm position: " + position + "\nId: " + id);
+                startActivity(new Intent(mContext, EditAlarmActivity.class).
+                        setData(ContentUris.withAppendedId(AlarmContract.AlarmEntry.CONTENT_URI, id)).
+                        putExtra("alarm-id", id)
+                );
                 // TODO: Use appropriate callback method in Fragment
 //                finish();
+            }
+        });
+
+        //
+        mAlarmsCursorAdapter.setOnAlarmSwitch(new AlarmsCursorRecyclerAdapter.OnAlarmSwitchListener() {
+            @Override
+            public void onAlarmSwitch (long id, boolean isSwitched) {
+                Log.v(LOG_TAG, "Alarm " + id + " switched " + (isSwitched ? "on" : "off"));
+                if (!isSwitched) AlarmScheduler.stopAlarm(mContext, id);
+                else AlarmScheduler.setupAlarm(mContext, id,
+                        ContentUris.withAppendedId(AlarmContract.AlarmEntry.CONTENT_URI, id));
             }
         });
 
@@ -118,9 +131,9 @@ public class AlarmsFragment extends Fragment implements LoaderManager.LoaderCall
         mBinding.buttonTestNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                NotificationUtil.notifyUserToTakeMeds(mContext);
-                Intent intent1 = new Intent(AlarmsFragment.this.getContext(), AlarmActivity.class);
-                startActivity(intent1);
+//                Intent intent1 = new Intent(AlarmsFragment.this.getContext(), AlarmActivity.class);
+//                startActivity(intent1);
+                AlarmScheduler.assessAlarms(mContext);
             }
         });
 

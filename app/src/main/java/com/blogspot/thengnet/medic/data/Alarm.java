@@ -16,13 +16,14 @@ public class Alarm {
     private String tone;
     private boolean vibrateState;
     private boolean repeatState;
+    private String repeatTimes;
 
-    public Alarm(int alarmId, boolean state, String title, LocalDate startDate, LocalDate stopDate,
-                 LocalTime time, boolean repeatState, String administrationPerDay, boolean vibrateState,
-                 String tone, String administrationForm) {
+    public Alarm(int alarmId, String title, boolean state, String administrationForm,
+                 LocalDate startDate, LocalDate stopDate, LocalTime time, String administrationPerDay,
+                 String tone, boolean vibrateState, boolean repeatState/*, String repeatTimes*/) {
         this.id = alarmId;
-        this.alarmState = state;
         this.title = title;
+        this.alarmState = state;
         this.administrationForm = administrationForm;
         this.startDate = startDate;
         this.stopDate = stopDate;
@@ -31,6 +32,7 @@ public class Alarm {
         this.tone = tone;
         this.vibrateState = vibrateState;
         this.repeatState = repeatState;
+//        this.repeatTimes = repeatTimes;
     }
 
     public int getId () {
@@ -109,4 +111,7 @@ public class Alarm {
     public void setRepeatState (boolean repeatState) {
         this.repeatState = repeatState;
     }
+
+    public String getRepeatTimes () { return repeatTimes; }
+    public void setRepeatTimes (String repeatTimes) { this.repeatTimes = repeatTimes; }
 }

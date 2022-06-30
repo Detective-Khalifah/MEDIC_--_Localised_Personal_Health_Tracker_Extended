@@ -3,14 +3,20 @@ package com.blogspot.thengnet.medic;
 import android.content.Intent;
 //import android.databinding.DataBindingUtil;
 //import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
+import android.database.CursorWindow;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.blogspot.thengnet.medic.databinding.ActivityMainBinding;
+import com.blogspot.thengnet.medic.utilities.AlarmScheduler;
+import com.blogspot.thengnet.medic.utilities.NotificationUtil;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.lang.reflect.Field;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,13 +27,26 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseUser mSignedInUser;
+
+    private SharedPreferences configurations;
+
+    /** Preference Keys */
+    private static String HOUR_FORMAT_PREFERENCE, HOUR_FORMAT_12, HOUR_FORMAT_24,
+            ALARM_VOLUME_PREFERENCE,
+            ALARM_RING_DURATION_PREFERENCE, ALARM_RING_DURATION_ONE, ALARM_RING_DURATION_THREE,
+            ALARM_RING_DURATION_FIVE, ALARM_RING_DURATION_TEN,
+            ALARM_SNOOZE_PREFERENCE, ALARM_SNOOZE_DURATION_ONE, ALARM_SNOOZE_DURATION_THREE,
+            ALARM_SNOOZE_DURATION_FIVE, ALARM_SNOOZE_DURATION_TEN
+            ;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -50,6 +69,24 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Get a link to SharedPreferences
+        configurations = PreferenceManager.getDefaultSharedPreferences(this);
+
+        NotificationUtil.createNotificationChannel(this, "alarm");
+        NotificationUtil.createNotificationChannel(this, "appointment");
+        NotificationUtil.createNotificationChannel(this, "map");
+
+        // TODO: Find a way to manage memory/transaction against dB; had to use this block to query
+        //  large data, otherwise I got SQLiteBlobTooBigException --
+        //  android.database.sqlite.SQLiteBlobTooBigException: Row too big to fit into CursorWindow requiredPos=34, totalRows=1
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         mAuth = FirebaseAuth.getInstance();
         mSignedInUser = mAuth.getCurrentUser();
     }
@@ -60,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        if (currentUser != null){
-//            startActivity(new Intent(this, AlarmFragment.class));
+//            startActivity(new Intent(this, AlarmsFragment.class));
 //        } else {
 //            startActivity(new Intent(this, SignInActivity.class));
 //        }
@@ -94,5 +131,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
+        // TODO: changed metrics - alarm volume, ring duration, snooze length, hr format,
+        //  reminder volume, reminder duration - based on user preferences
     }
 }

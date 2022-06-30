@@ -199,7 +199,7 @@ public class AlarmProvider extends ContentProvider {
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_PER_DAY)) {
             String administrationPerDay = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_PER_DAY);
             if (administrationPerDay == null || administrationPerDay.equals(""))
-                throw new IllegalArgumentException("Alarm Administration Per Day passed, but as an empty/null value!");
+                throw new IllegalArgumentException("Alarm Administration Per Day passed, but as a null value!");
         }
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_TONE)) {
             String alarmTone = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TONE);
@@ -215,6 +215,11 @@ public class AlarmProvider extends ContentProvider {
             int alarmRepeatState = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_REPEAT_STATE);
             if (!(alarmRepeatState == 0 || alarmRepeatState == 1))
                 throw new IllegalArgumentException("Alarm Repeat State passed, but as a null value!");
+        }
+        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_TRIGGER_REPEAT_TIMES)) {
+            String alarmRepeatTimes = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TRIGGER_REPEAT_TIMES);
+            if (alarmRepeatTimes == null || alarmRepeatTimes.equals(""))
+                throw new IllegalArgumentException("Alarm Repeat Times passed, but as a null value!");
         }
 
         int rowsUpdated = mMedicDbHelper.getWritableDatabase().update(AlarmContract.TABLE_NAME,

@@ -143,6 +143,13 @@
     <string name="admin_spray">SPRAY</string>
     <string name="admin_tablet">TABLET</string>
 
+    <!-- Dosing Times -->
+    <string name="q24h">1</string>
+    <string name="q12h">2</string>
+    <string name="q8h">3</string>
+    <string name="q6h">4</string>
+    <string name="q4h">6</string>
+
     <!-- First time to remind user of an appointment before appointed time -->
     <string name="remind_1_hour_before">Remind one hour before appointment</string>
     <string name="remind_2_hours_before">Remind two hours before appointment</string>

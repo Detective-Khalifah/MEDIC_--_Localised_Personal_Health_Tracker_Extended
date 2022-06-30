@@ -74,6 +74,15 @@
         <item>@string/admin_tablet</item>
     </string-array>
 
+    <string-array name="dosing_times">
+        <item>@string/q24h</item>
+        <item>@string/q12h</item>
+        <item>@string/q8h</item>
+        <item>@string/q6h</item>
+        <item>@string/q4h</item>
+        <item>288</item>
+    </string-array>
+
     <string-array name="remind_before_appointment_time">
         <item>@string/remind_1_hour_before</item>
         <item>@string/remind_2_hours_before</item>

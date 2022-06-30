@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.blogspot.thengnet.medic.databinding.AlarmBinding;
 import com.blogspot.thengnet.medic.utilities.TimeConverter;
@@ -17,10 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<AlarmsCursorRecyclerAdapter.ViewHolder> {
 
-    private OnAlarmClickListener onAlarmClickListener;
+    private OnAlarmClickListener mOnAlarmClickListener;
+    private OnAlarmSwitchListener mOnAlarmSwitchListener;
 
+    /**
+     * Definition of interface responsible for listening to click events.
+     */
     public interface OnAlarmClickListener {
         void onAlarmClick (int position, long id);
+    }
+
+    public interface OnAlarmSwitchListener {
+        void onAlarmSwitch(long id, boolean isSwitched);
     }
 
     public AlarmsCursorRecyclerAdapter (Context context, Cursor cursor) {
@@ -28,7 +37,11 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
     }
 
     public void setOnAlarmClickListener (OnAlarmClickListener alarmClickListener) {
-        onAlarmClickListener = alarmClickListener;
+        mOnAlarmClickListener = alarmClickListener;
+    }
+
+    public void setOnAlarmSwitch (OnAlarmSwitchListener alarmSwitchListener) {
+        mOnAlarmSwitchListener = alarmSwitchListener;
     }
 
     @NonNull
@@ -36,7 +49,7 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
     public AlarmsCursorRecyclerAdapter.ViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 AlarmBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false),
-                onAlarmClickListener
+                mOnAlarmClickListener, mOnAlarmSwitchListener
         );
     }
 
@@ -57,16 +70,16 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
         // Create an instance of the Alarm from fetched dB record
         viewHolder.theAlarm = new Alarm(
                 Integer.parseInt(id),
-                alarmState == 1,
                 alarmTitle,
+                alarmState == 1,
+                administrationForm,
                 TimeConverter.parseDate(alarmStartDate),
                 TimeConverter.parseDate(alarmStopDate),
                 TimeConverter.parseTime(alarmTime),
-                alarmRepeatState == 1,
                 administrationPerDay,
-                alarmVibrateState == 1,
                 alarmTone,
-                administrationForm
+                alarmVibrateState == 1,
+                alarmRepeatState == 1
         );
 
         // Bind the Alarm to relevant views
@@ -109,7 +122,7 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
         public Alarm theAlarm;
         public AlarmBinding alarmBinding;
 
-        public ViewHolder (AlarmBinding binding, final OnAlarmClickListener alarmClickListener) {
+        public ViewHolder (AlarmBinding binding, final OnAlarmClickListener alarmClickListener, OnAlarmSwitchListener alarmSwitchListener) {
             super(binding.getRoot());
             alarmBinding = binding;
             alarmBinding.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -122,6 +135,14 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
                         if (position != RecyclerView.NO_POSITION)
                             alarmClickListener.onAlarmClick(position, id);
                     }
+                }
+            });
+
+            alarmBinding.switchScheduleState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
+                    if (buttonView.isPressed())
+                        alarmSwitchListener.onAlarmSwitch(theAlarm.getId(), isChecked);
                 }
             });
         }

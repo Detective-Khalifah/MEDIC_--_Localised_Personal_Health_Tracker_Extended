@@ -43,36 +43,30 @@ public class EditAlarmActivity extends AppCompatActivity {
 
     private static TimePickerDialog mTimePickerDialogFrag;
     private static DatePickerDialog mDatePickerDialogFrag;
-    private TextInputEditText mActiveDateSelector, mActiveTimeSelector;
-    private Snackbar editAlarmNotifier;
-
     private static Uri mAlarmUri, mNewAlarmToneUri, mSavedAlarmToneUri;
-//    private static ArrayAdapter<AdministrationForm> mAdministrationFormArrayAdapter;
-
     /**
      * {@link Preference} keys.
      */
     private static String HOUR_FORMAT_PREFERENCE, HOUR_FORMAT_12, HOUR_FORMAT_24;
-
     /**
      * Data of new {@link Alarm}.
      */
     private static String mNewAlarmTitle, mSavedAlarmAdministrationPerDay, mNewAlarmStartDate,
             mNewAlarmStopDate, mNewAlarmStartTime, mNewAlarmAdministrationForm;
-
     /**
      * Data of existing {@link Alarm}.
      */
-    private static String mSavedAlarmTitle, mNewAlarmAdministrationPerDay,mSavedAlarmStartDate,
+    private static String mSavedAlarmTitle, mNewAlarmAdministrationPerDay, mSavedAlarmStartDate,
             mSavedAlarmStopDate, mSavedAlarmStartTime, mSavedAlarmAdministrationForm;
-
-    private static int mAlarmId;
+    private static long mAlarmId;
+    private TextInputEditText mActiveDateSelector, mActiveTimeSelector;
+    private Snackbar editAlarmNotifier;
     private SharedPreferences configurations;
     private ActivityEditAlarmBinding binding;
     private Alarm currentAlarm;
     private /*final*/ int mYear, mMonth, mDay, mHours, mMinutes;
     private int mNewAlarmState, mNewAlarmRepeatState, mNewAlarmVibrateState,
-            mSavedAlarmState,mSavedAlarmRepeatState, mSavedAlarmVibrateState;
+            mSavedAlarmState, mSavedAlarmRepeatState, mSavedAlarmVibrateState;
     private boolean isNewAlarm;
 
     @Override
@@ -98,19 +92,6 @@ public class EditAlarmActivity extends AppCompatActivity {
         HOUR_FORMAT_24 = getString(R.string.hour_format_24_key);
         HOUR_FORMAT_PREFERENCE = getString(R.string.settings_hour_format_key);
 
-        // Create an ArrayAdapter using the enum values and a default spinner layout
-//        mAdministrationFormArrayAdapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_spinner_item, AdministrationForm.values());
-        // Specify the layout to use when the list of choices appears
-//        mAdministrationFormArrayAdapter.setDropDownViewResource(
-//                android.R.layout.simple_spinner_dropdown_item);
-        // apply the adapter to the spinner
-//        binding.spinnerAdministrationForm.setAdapter(new ArrayAdapter<AdministrationForm>(
-//                this,
-//                android.R.layout.simple_spinner_item,
-//                AdministrationForm.values())
-//        );
-
         // Find the FrameLayout used for the Snackbar and initialise to empty Snackbar, with text
         // altered at different stages of Activity
         editAlarmNotifier = Snackbar.make(binding.editorSnackbarFrame, "",
@@ -123,8 +104,9 @@ public class EditAlarmActivity extends AppCompatActivity {
         // that does not exist yet, otherwise -- initialise fields instead
         if (mAlarmUri != null) {
             isNewAlarm = false;
+            mAlarmId = existingAlarm.getExtras().getLong("alarm-id");
             getAlarmDetails();
-            Log.v(LOG_TAG, "OLD Alarm!");
+            Log.v(LOG_TAG, "OLD Alarm " + mAlarmId + "!");
         } else {
             isNewAlarm = true;
             Log.v(LOG_TAG, "NEW Alarm!");
@@ -161,38 +143,31 @@ public class EditAlarmActivity extends AppCompatActivity {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
-                        switch (R.array.administration_forms /*AdministrationForm.values()[position]*/) {
+                        switch (R.array.administration_forms) {
                             // TODO: Set image according to selected item
-                            case R.string.admin_capsule: break;
-                            case R.string.admin_drops: break;
-                            case R.string.admin_inhalant: break;
-                            case R.string.admin_injection: break;
-                            case R.string.admin_ointment: break;
-                            case R.string.admin_solution: break;
-                            case R.string.admin_spray: break;
-                            case R.string.admin_tablet: break;
-//                            case CAPSULE:
-//                                break;
-//                            case DROPS:
-//                                break;
-//                            case INHALANT:
-//                                break;
-//                            case INJECTION:
-//                                break;
-//                            case OINTMENT:
-//                                break;
-//                            case SOLUTION:
-//                                break;
-//                            case SPRAY:
-//                                break;
-//                            case TABLET:
-//                                break;
-//                            default:
+                            case R.string.admin_capsule:
+                                break;
+                            case R.string.admin_drops:
+                                break;
+                            case R.string.admin_inhalant:
+                                break;
+                            case R.string.admin_injection:
+                                break;
+                            case R.string.admin_ointment:
+                                break;
+                            case R.string.admin_solution:
+                                break;
+                            case R.string.admin_spray:
+                                break;
+                            case R.string.admin_tablet:
+                                break;
+                            default:
                         }
                     }
 
                     @Override
-                    public void onNothingSelected (AdapterView<?> parent) {}
+                    public void onNothingSelected (AdapterView<?> parent) {
+                    }
                 });
     }
 
@@ -277,7 +252,10 @@ public class EditAlarmActivity extends AppCompatActivity {
         mNewAlarmAdministrationForm = binding.spinnerAdministrationForm.getSelectedItem().toString();
         mNewAlarmStartDate = binding.editStartDate.getText().toString();
         mNewAlarmStopDate = binding.editStopDate.getText().toString();
-        mNewAlarmStartTime = binding.editStartTime.getText().toString();
+        mNewAlarmStartTime =
+                configurations.getString(HOUR_FORMAT_PREFERENCE, HOUR_FORMAT_12).equals(HOUR_FORMAT_12)
+                        ? TimeConverter.convert12To24HTime(binding.editStartTime.getText().toString().trim())
+                        : binding.editStartTime.getText().toString().trim();
         mNewAlarmAdministrationPerDay = binding.spinnerAdministrationPerDay.getSelectedItem().toString();
         mNewAlarmToneUri = Uri.parse(binding.textviewAlarmTonePicker.getText().toString());
         mNewAlarmVibrateState = binding.checkboxVibrateState.isChecked() ? 1 : 0;
@@ -320,15 +298,39 @@ public class EditAlarmActivity extends AppCompatActivity {
         int numberOfAlarmsUpdated = getContentResolver()
                 .update(mAlarmUri, updateValues, null, null);
         Log.v(LOG_TAG, "Updated alarm(s): " + numberOfAlarmsUpdated);
+
+        // TODO: Cancel old Alarm metrics-wise; schedule new Alarm metrics-wise
+        // Check if there were modifications in the time metrics of the Alarm
+        // -- un-schedule old Alarm if there were modifications, and (old) Alarm was enabled.
+        // -- schedule new Alarm if there were modifications, and (new) Alarm is enabled.
+        // If Alarm got disabled WITHOUT any modifications made, un-scheduled the old Alarm.
+            if (mNewAlarmStartTime.equals(mSavedAlarmStartTime) &&
+                    mNewAlarmStartDate.equals(mSavedAlarmStartDate) &&
+                    mNewAlarmStopDate.equals(mSavedAlarmStopDate) &&
+                    mNewAlarmAdministrationPerDay.equals(mSavedAlarmAdministrationForm)) {
+                Log.v(LOG_TAG, "Alarm time metrics modified!");
+
+                // Cancel previously set Alarm, only if the old Alarm's time metric(s) got updated.
+                if (mSavedAlarmState == 1) AlarmScheduler.stopAlarm(this, mAlarmId);
+                // (re-)Schedule a new Alarm using the updated metric(s), only if the Alarm got enabled (at update).
+                if (mNewAlarmState == 1) AlarmScheduler.setupAlarm(this, mAlarmId, mAlarmUri);
+            } else {
+                // Un-schedule disabled, OLD Alarm; field "mNewAlarmState" suggests a NEW Alarm but
+                // the int value is only used to hold metrics of an Alarm being edited, which may or
+                // may not be an update to the OLD Alarm -- have same (time) metrics as the OLD Alarm.
+                if (mNewAlarmState == 0) AlarmScheduler.stopAlarm(this, mAlarmId);
+            }
+
         if (numberOfAlarmsUpdated == 1) {
             editAlarmNotifier.setText(getString(R.string.edit_alarm_successful_save));
             editAlarmNotifier.show();
+            finish();
             return true;
-        } else {
-            editAlarmNotifier.setText(getString(R.string.edit_alarm_unsuccessful_update));
-            editAlarmNotifier.show();
-            return false;
         }
+
+        editAlarmNotifier.setText(getString(R.string.edit_alarm_unsuccessful_update));
+        editAlarmNotifier.show();
+        return false;
     }
 
     private void processNewAlarm () {
@@ -390,7 +392,7 @@ public class EditAlarmActivity extends AppCompatActivity {
         if (mAlarmUri != null) {
             editAlarmNotifier.setText(getString(R.string.edit_alarm_successful_save));
 
-            try (Cursor newAlarm = getContentResolver().query(mAlarmUri, null, null,
+            try (Cursor newAlarm = getContentResolver().query(mAlarmUri, new String[]{AlarmContract.AlarmEntry._ID}, null,
                     null, null)) {
                 if (newAlarm != null) {
                     newAlarm.moveToFirst();
@@ -402,14 +404,17 @@ public class EditAlarmActivity extends AppCompatActivity {
             }
 
             // Schedule the Alarm
-            String message = AlarmScheduler.scheduleAlarm(
+            // TODO: Schedule in bg; display message meanwhile.
+            String message = AlarmScheduler.setupAlarm(
                     this,
                     mAlarmId,
-                    TimeConverter.getTimeInMillis(mNewAlarmStartDate, mNewAlarmStartTime));
+                    mAlarmUri);
             editAlarmNotifier.setText(message);
-        } else {
-            editAlarmNotifier.setText(getString(R.string.edit_alarm_unsuccessful_save));
+            editAlarmNotifier.show();
+            finish();
         }
+
+        editAlarmNotifier.setText(getString(R.string.edit_alarm_unsuccessful_save));
         editAlarmNotifier.show();
 
     }
@@ -438,7 +443,7 @@ public class EditAlarmActivity extends AppCompatActivity {
                         AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM));
                 binding.spinnerAdministrationForm.setSelection(
                         ((ArrayAdapter<String>) binding.spinnerAdministrationForm.getAdapter()).
-                        getPosition(mSavedAlarmAdministrationForm));
+                                getPosition(mSavedAlarmAdministrationForm));
 
                 mSavedAlarmStartDate = savedAlarm.getString(savedAlarm.getColumnIndexOrThrow(
                         AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE));
@@ -495,10 +500,12 @@ public class EditAlarmActivity extends AppCompatActivity {
     private class Dates implements DatePickerDialog.OnDateSetListener,
             TimePickerDialog.OnTimeSetListener, View.OnFocusChangeListener {
 
-        protected Dates () {}
+        protected Dates () {
+        }
 
         /**
          * Store the date selected by user in format dd-mm-yyyy
+         *
          * @param datePicker the {@link DatePicker} edited by user
          * @param year       set by the user
          * @param month      set by the user

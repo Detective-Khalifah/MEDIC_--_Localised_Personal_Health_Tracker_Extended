@@ -25,6 +25,7 @@ import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.media.AudioManager
 import android.os.*
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -107,6 +108,7 @@ class AlarmActivity : BaseActivity(), View.OnClickListener, View.OnTouchListener
         setVolumeControlStream(AudioManager.STREAM_ALARM)
 
         if (Utils.isOOrLater) {
+            Log.v("AlarmActivity", "O+ " + Utils.isOOrLater + "; LMR1+" + Utils.isLMR1OrLater);
             setShowWhenLocked(true)
             setTurnScreenOn(true)
             getWindow().addFlags(
@@ -114,6 +116,7 @@ class AlarmActivity : BaseActivity(), View.OnClickListener, View.OnTouchListener
                         or WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
             )
         } else {
+            Log.v("AlarmActivity", "O+ " + Utils.isOOrLater + "; LMR1+" + Utils.isLMR1OrLater);
             getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                         or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD

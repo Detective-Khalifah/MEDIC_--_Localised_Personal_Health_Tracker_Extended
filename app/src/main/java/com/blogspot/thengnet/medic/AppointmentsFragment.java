@@ -117,7 +117,7 @@ public class AppointmentsFragment extends Fragment implements LoaderManager.Load
         mBinding.buttonTestNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                NotificationUtil.notifyUserToTakeMeds(mContext);
+                NotificationUtil.buildMedicationNotification(mContext);
                 Intent intent1 = new Intent(AppointmentsFragment.this.getContext(), AlarmActivity.class);
                 startActivity(intent1);
             }

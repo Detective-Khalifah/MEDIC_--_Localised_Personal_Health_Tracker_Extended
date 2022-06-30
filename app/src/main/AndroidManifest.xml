@@ -3,6 +3,13 @@
     package="com.blogspot.thengnet.medic">
 
     <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
+    <!-- For Android Build.VERSION_CODES#O (API level 26+) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- For Android Build.VERSION_CODES#Q (API level 29+) -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +19,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MEDIC">
         <activity
-            android:name=".EditAppointmentActivity"
-            android:exported="true" />
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MEDIC.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!-- ============================================================== -->
         <!-- Alarm components. -->
         <!-- ============================================================== -->
+        <activity
+            android:name=".EditAlarmActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" /> <!-- android:theme="@style/Theme.MEDIC.NoActionBar" /> -->
         <activity
             android:name=".google.alarms.AlarmActivity"
             android:directBootAware="true"
@@ -26,48 +46,9 @@
             android:showWhenLocked="true"
             android:taskAffinity=""
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.MEDIC.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".ViewProfileActivity"
-            android:exported="true" />
-        <activity
-            android:name=".EditAlarmActivity"
-            android:exported="true" /> <!-- android:theme="@style/Theme.MEDIC.NoActionBar" /> -->
-        <activity
-            android:name=".SignInActivity"
-            android:exported="true"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".SignUpWithPhoneNumber"
-            android:exported="true"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".SignUpWithEMail"
-            android:exported="true"
-            android:launchMode="singleTask" />
-
         <provider
             android:name=".data.AlarmProvider"
             android:authorities="com.blogspot.thengnet.medic.data.AlarmProvider"
-            android:exported="false" />
-        <provider
-            android:name=".data.AppointmentProvider"
-            android:authorities="com.blogspot.thengnet.medic.data.AppointmentProvider"
             android:exported="false" />
 
         <service
@@ -87,6 +68,38 @@
                 <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
         </receiver>
+
+        <!-- ============================================================== -->
+        <!-- Appointment components. -->
+        <!-- ============================================================== -->
+        <activity
+            android:name=".EditAppointmentActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
+        <provider
+            android:name=".data.AppointmentProvider"
+            android:authorities="com.blogspot.thengnet.medic.data.AppointmentProvider"
+            android:exported="false" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".ViewProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".SignUpWithPhoneNumber"
+            android:exported="true"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".SignUpWithEMail"
+            android:exported="true"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

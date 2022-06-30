@@ -26,7 +26,8 @@ public class MedicDbHelper extends SQLiteOpenHelper {
             AlarmEntry.COLUMN_ADMINISTRATION_PER_DAY + " TEXT NOT NULL," +
             AlarmEntry.COLUMN_ALARM_TONE + " TEXT NOT NULL," + // TODO: Use a default notification tone
             AlarmEntry.COLUMN_ALARM_VIBRATE_OR_NOT + " INTEGER NOT NULL DEFAULT 0," +
-            AlarmEntry.COLUMN_ALARM_REPEAT_STATE + " INTEGER NOT NULL DEFAULT 0" +
+            AlarmEntry.COLUMN_ALARM_REPEAT_STATE + " INTEGER NOT NULL DEFAULT 0," +
+            AlarmEntry.COLUMN_ALARM_TRIGGER_REPEAT_TIMES + " TEXT" +
             ");";
 
     private static final String APPOINTMENT_TABLE_CREATION_STATEMENT = "CREATE TABLE " + AppointmentContract.TABLE_NAME

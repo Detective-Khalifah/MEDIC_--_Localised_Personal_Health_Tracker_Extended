@@ -21,7 +21,8 @@ public class AlarmContract {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, ALARMS_PATH);
 
         /**
-         * ID column of the database: Type - TEXT.
+         * ID column of the database: Type - INTEGER (long).
+         * TODO: Convert to long; check 'ctrl + q'
          */
         public static final String _ID = BaseColumns._ID;
 
@@ -61,14 +62,9 @@ public class AlarmContract {
         public static final String COLUMN_ADMINISTRATION_PER_DAY = "administration_per_day";
 
         /**
-         * Whether to repeat alarm on selected days or trigger once: Type - INTEGER.
+         * Tone to play for a specific alarm: Type - TEXT.
          */
-        public static final String COLUMN_ALARM_REPEAT_STATE = "repeat_or_not";
-
-        /**
-         * Repeat dates of alarm (Array of DATEs): Type - TEXT.
-         */
-//        public static final String COLUMN_ALARM_REPEAT_DATES = "repeat_dates";
+        public static final String COLUMN_ALARM_TONE = "alarm_tone";
 
         /**
          * Vibration state of alarm: Type - INTEGER.
@@ -76,8 +72,15 @@ public class AlarmContract {
         public static final String COLUMN_ALARM_VIBRATE_OR_NOT = "vibrate_or_not";
 
         /**
-         * Tone to play for a specific alarm: Type - TEXT.
+         * Whether to repeat alarm on selected days or trigger once: Type - INTEGER.
          */
-        public static final String COLUMN_ALARM_TONE = "alarm_tone";
+        public static final String COLUMN_ALARM_REPEAT_STATE = "repeat_or_not";
+
+        /**
+         * Time(s) to trigger repeat of alarm reminder (Array of TIMEs): Type - TEXT.
+         */
+        public static final String COLUMN_ALARM_TRIGGER_REPEAT_TIMES = "repeat_times";
+
+
     }
 }
