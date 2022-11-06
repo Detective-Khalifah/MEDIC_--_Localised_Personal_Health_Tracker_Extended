@@ -76,7 +76,6 @@ public class AlarmProvider extends ContentProvider {
     public Uri insert (Uri uri, ContentValues contentValues) {
         String alarmTitle = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE);
         int alarmState = contentValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE);
-        String administrationForm = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM);
         String alarmStartDate = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE);
         String alarmStopDate = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE);
         String alarmTime = contentValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME);
@@ -89,8 +88,6 @@ public class AlarmProvider extends ContentProvider {
             throw new IllegalArgumentException("Alarm Title is missing!");
         if (alarmState != 0 && alarmState != 1)
             throw new IllegalArgumentException("Alarm State is missing!");
-        if (administrationForm == null || administrationForm.equals(""))
-            throw new IllegalArgumentException("Administration Form missing");
         if (alarmStartDate == null || alarmStartDate.equals(""))
             throw new IllegalArgumentException("Alarm Start Date missing!");
         if (alarmStopDate == null || alarmStopDate.equals(""))
@@ -175,11 +172,6 @@ public class AlarmProvider extends ContentProvider {
             int alarmState = updateValues.getAsInteger(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE);
             if (!(alarmState == 0 || alarmState == 1))
                 throw new IllegalArgumentException("Alarm Active State passed, but as a null value!");
-        }
-        if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM)) {
-            String administrationForm = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM);
-            if (administrationForm == null || administrationForm.equals(""))
-                throw new IllegalArgumentException("Administration Form passed, but as a null value!");
         }
         if (updateValues.containsKey(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE)) {
             String alarmStartDate = updateValues.getAsString(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE);

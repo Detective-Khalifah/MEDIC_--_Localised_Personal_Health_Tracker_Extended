@@ -37,11 +37,6 @@ public class AlarmContract {
         public static final String COLUMN_ALARM_STATE = "active";
 
         /**
-         * Physical form of the medicine administered: Type - TEXT.
-         */
-        public static final String COLUMN_ADMINISTRATION_FORM = "administration_form";
-
-        /**
          * First date to trigger alarm: Type - TEXT.
          */
         public static final String COLUMN_ALARM_START_DATE = "start_date";

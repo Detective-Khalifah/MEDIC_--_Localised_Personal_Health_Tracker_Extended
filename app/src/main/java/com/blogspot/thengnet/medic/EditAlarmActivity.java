@@ -52,12 +52,12 @@ public class EditAlarmActivity extends AppCompatActivity {
      * Data of new {@link Alarm}.
      */
     private static String mNewAlarmTitle, mSavedAlarmAdministrationPerDay, mNewAlarmStartDate,
-            mNewAlarmStopDate, mNewAlarmStartTime, mNewAlarmAdministrationForm;
+            mNewAlarmStopDate, mNewAlarmStartTime;
     /**
      * Data of existing {@link Alarm}.
      */
     private static String mSavedAlarmTitle, mNewAlarmAdministrationPerDay, mSavedAlarmStartDate,
-            mSavedAlarmStopDate, mSavedAlarmStartTime, mSavedAlarmAdministrationForm;
+            mSavedAlarmStopDate, mSavedAlarmStartTime;
     private static long mAlarmId;
     private TextInputEditText mActiveDateSelector, mActiveTimeSelector;
     private Snackbar editAlarmNotifier;
@@ -111,7 +111,7 @@ public class EditAlarmActivity extends AppCompatActivity {
             isNewAlarm = true;
             Log.v(LOG_TAG, "NEW Alarm!");
 
-            // TODO: Initialise schedule state, dates, time, administration form
+            // TODO: Initialise schedule state, dates, time
             String hourFormat = configurations.getString(HOUR_FORMAT_PREFERENCE, HOUR_FORMAT_12);
             binding.editStartDate.setText(TimeConverter.getCurrentDate());
             binding.editStopDate.setText(TimeConverter.getCurrentDate());
@@ -139,36 +139,6 @@ public class EditAlarmActivity extends AppCompatActivity {
             }
         });
 
-        binding.spinnerAdministrationForm.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
-                        switch (R.array.administration_forms) {
-                            // TODO: Set image according to selected item
-                            case R.string.admin_capsule:
-                                break;
-                            case R.string.admin_drops:
-                                break;
-                            case R.string.admin_inhalant:
-                                break;
-                            case R.string.admin_injection:
-                                break;
-                            case R.string.admin_ointment:
-                                break;
-                            case R.string.admin_solution:
-                                break;
-                            case R.string.admin_spray:
-                                break;
-                            case R.string.admin_tablet:
-                                break;
-                            default:
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected (AdapterView<?> parent) {
-                    }
-                });
     }
 
     @Override
@@ -187,30 +157,19 @@ public class EditAlarmActivity extends AppCompatActivity {
         }
     }
 
+    // TODO: Replace with onPause override; onSupportNavigateUp & onNavigateUp only work with the
+    //  {@link ActionBar}
     @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.edit_alarm, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save_alarm:
-                if (isNewAlarm) {
-                    processNewAlarm();
-                } else {
-                    updateAlarm();
-                }
-//                isNewAlarm ? updateAlarm() : processNewAlarm();
-                Toast.makeText(this, "...", Toast.LENGTH_SHORT).show();
-                break;
-            case android.R.id.home:
-                finish();
-                break;
-            default:
+    public boolean onSupportNavigateUp () {
+        Log.v(LOG_TAG, "Nav up");
+        if (isNewAlarm) {
+            processNewAlarm();
+        } else {
+            updateAlarm();
         }
-        return super.onOptionsItemSelected(item);
+//                isNewAlarm ? updateAlarm() : processNewAlarm();
+        Toast.makeText(this, "...", Toast.LENGTH_SHORT).show();
+        return super.onSupportNavigateUp();
     }
 
     private boolean isMinimumMetricFilled () {
@@ -249,7 +208,6 @@ public class EditAlarmActivity extends AppCompatActivity {
         Log.v(LOG_TAG, "updateAlarm()");
         mNewAlarmTitle = binding.editScheduleTitle.getText().toString().trim();
         mNewAlarmState = binding.switchScheduleState.isChecked() ? 1 : 0;
-        mNewAlarmAdministrationForm = binding.spinnerAdministrationForm.getSelectedItem().toString();
         mNewAlarmStartDate = binding.editStartDate.getText().toString();
         mNewAlarmStopDate = binding.editStopDate.getText().toString();
         mNewAlarmStartTime =
@@ -265,7 +223,6 @@ public class EditAlarmActivity extends AppCompatActivity {
         //  View got modified
         if (mNewAlarmTitle.equals(mSavedAlarmTitle) &&
                 mNewAlarmState == mSavedAlarmState &&
-                mNewAlarmAdministrationForm.equals(mSavedAlarmAdministrationForm) &&
                 mNewAlarmStartDate.equals(mSavedAlarmStartDate) &&
                 mNewAlarmStopDate.equals(mSavedAlarmStopDate) &&
                 mNewAlarmStartTime.equals(mSavedAlarmStartTime) &&
@@ -286,7 +243,6 @@ public class EditAlarmActivity extends AppCompatActivity {
         if (!mNewAlarmTitle.equals(mSavedAlarmTitle))
             updateValues.put(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE, mNewAlarmTitle);
         updateValues.put(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE, mNewAlarmState);
-        updateValues.put(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM, mNewAlarmAdministrationForm);
         updateValues.put(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE, mNewAlarmStartDate);
         updateValues.put(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE, mNewAlarmStopDate);
         updateValues.put(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME, mNewAlarmStartTime);
@@ -306,8 +262,7 @@ public class EditAlarmActivity extends AppCompatActivity {
         // If Alarm got disabled WITHOUT any modifications made, un-scheduled the old Alarm.
             if (mNewAlarmStartTime.equals(mSavedAlarmStartTime) &&
                     mNewAlarmStartDate.equals(mSavedAlarmStartDate) &&
-                    mNewAlarmStopDate.equals(mSavedAlarmStopDate) &&
-                    mNewAlarmAdministrationPerDay.equals(mSavedAlarmAdministrationForm)) {
+                    mNewAlarmStopDate.equals(mSavedAlarmStopDate)) {
                 Log.v(LOG_TAG, "Alarm time metrics modified!");
 
                 // Cancel previously set Alarm, only if the old Alarm's time metric(s) got updated.
@@ -336,7 +291,6 @@ public class EditAlarmActivity extends AppCompatActivity {
     private void processNewAlarm () {
         mNewAlarmTitle = binding.editScheduleTitle.getText().toString().trim();
         mNewAlarmState = binding.switchScheduleState.isChecked() ? 1 : 0;
-        mNewAlarmAdministrationForm = binding.spinnerAdministrationForm.getSelectedItem().toString();
         mNewAlarmStartDate = binding.editStartDate.getText().toString().trim();
         mNewAlarmStopDate = binding.editStopDate.getText().toString().trim();
         mNewAlarmStartTime =
@@ -374,7 +328,6 @@ public class EditAlarmActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE, mNewAlarmTitle);
         values.put(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE, mNewAlarmState);
-        values.put(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM, mNewAlarmAdministrationForm);
         values.put(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE, mNewAlarmStartDate);
         values.put(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE, mNewAlarmStopDate);
         values.put(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME, mNewAlarmStartTime);
@@ -437,13 +390,6 @@ public class EditAlarmActivity extends AppCompatActivity {
                 mSavedAlarmState = savedAlarm.getInt(savedAlarm.getColumnIndexOrThrow(
                         AlarmContract.AlarmEntry.COLUMN_ALARM_STATE));
                 binding.switchScheduleState.setChecked(mSavedAlarmState == 1);
-
-                // TODO: Find appropriate method to display selected item from the Spinner's Adapter
-                mSavedAlarmAdministrationForm = savedAlarm.getString(savedAlarm.getColumnIndexOrThrow(
-                        AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM));
-                binding.spinnerAdministrationForm.setSelection(
-                        ((ArrayAdapter<String>) binding.spinnerAdministrationForm.getAdapter()).
-                                getPosition(mSavedAlarmAdministrationForm));
 
                 mSavedAlarmStartDate = savedAlarm.getString(savedAlarm.getColumnIndexOrThrow(
                         AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE));

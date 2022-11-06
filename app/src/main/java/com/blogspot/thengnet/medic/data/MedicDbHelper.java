@@ -19,7 +19,6 @@ public class MedicDbHelper extends SQLiteOpenHelper {
             + " ( " + AlarmEntry._ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             AlarmEntry.COLUMN_ALARM_TITLE + " TEXT NOT NULL, " +
             AlarmEntry.COLUMN_ALARM_STATE + " INTEGER NOT NULL DEFAULT 1," +
-            AlarmEntry.COLUMN_ADMINISTRATION_FORM + " TEXT NOT NULL," +
             AlarmEntry.COLUMN_ALARM_START_DATE + " TEXT NOT NULL, " +
             AlarmEntry.COLUMN_ALARM_STOP_DATE + " TEXT NOT NULL, " +
             AlarmEntry.COLUMN_ALARM_TIME + " TEXT NOT NULL, " + // TODO: Use a default value - current system time + 1 min - here

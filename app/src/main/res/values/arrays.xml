@@ -63,17 +63,6 @@
         <item>@string/hour_format_24_label</item>
     </string-array>
 
-    <string-array name="administration_forms">
-        <item>@string/admin_capsule</item>
-        <item>@string/admin_drops</item>
-        <item>@string/admin_inhalant</item>
-        <item>@string/admin_injection</item>
-        <item>@string/admin_ointment</item>
-        <item>@string/admin_solution</item>
-        <item>@string/admin_spray</item>
-        <item>@string/admin_tablet</item>
-    </string-array>
-
     <string-array name="dosing_times">
         <item>@string/q24h</item>
         <item>@string/q12h</item>
