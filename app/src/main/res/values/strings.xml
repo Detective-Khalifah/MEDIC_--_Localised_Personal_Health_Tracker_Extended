@@ -44,13 +44,11 @@
 
     <!-- Alarm param labels -->
     <string name="start_date">Start Date</string>
-    <string name="start_time">Start Time</string>
+    <string name="start_time">Time</string>
     <string name="stop_date">Stop Date</string>
     <string name="stop_time">Stop Time</string>
-    <string name="img_thumb_desc">Scheduled Time Illustration</string>
 
     <!-- EditAlarm labels, contentDescriptions,... -->
-    <string name="menu_save_alarm">Save</string>
     <string name="edit_alarm_found_match">Alarm duplicate found!</string>
     <string name="edit_alarm_successful_save">Alarm saved and scheduled!</string>
     <string name="edit_alarm_unsuccessful_save">Alarm could not be saved…</string>
@@ -63,7 +61,6 @@
     <string name="date_f">%2d-%2d-%4d</string>
 
     <!-- EditAppointment labels, contentDescriptions,... -->
-    <string name="menu_save_appointment">Save</string>
     <string name="reminder_title">Remind me about</string>
     <string name="appointment_location">Location</string>
     <string name="edit_appointment_found_match">Appointment duplicate found!</string>
@@ -132,16 +129,6 @@
     <string name="lang_hausa_label">Hausa (NG)</string>
     <string name="lang_igbo_label">Igbo (NG)</string>
     <string name="lang_yoruba_label">Yoruba (NG)</string>
-
-    <!-- Medication Administration Forms -->
-    <string name="admin_capsule">CAPSULE</string>
-    <string name="admin_drops">DROPS</string> // eye, ear, nasal
-    <string name="admin_inhalant">INHALANT</string>
-    <string name="admin_injection">INJECTION</string>
-    <string name="admin_ointment">OINTMENT</string>
-    <string name="admin_solution">SOLUTION</string> // elixir, syrup
-    <string name="admin_spray">SPRAY</string>
-    <string name="admin_tablet">TABLET</string>
 
     <!-- Dosing Times -->
     <string name="q24h">1</string>
@@ -255,4 +242,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">OK</string>
 </resources>

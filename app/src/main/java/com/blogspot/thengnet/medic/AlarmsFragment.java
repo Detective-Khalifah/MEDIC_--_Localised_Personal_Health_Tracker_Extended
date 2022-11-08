@@ -149,7 +149,6 @@ public class AlarmsFragment extends Fragment implements LoaderManager.LoaderCall
                     AlarmContract.AlarmEntry._ID,
                     AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE,
                     AlarmContract.AlarmEntry.COLUMN_ALARM_STATE,
-                    AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM,
                     AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE,
                     AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE,
                     AlarmContract.AlarmEntry.COLUMN_ALARM_TIME,

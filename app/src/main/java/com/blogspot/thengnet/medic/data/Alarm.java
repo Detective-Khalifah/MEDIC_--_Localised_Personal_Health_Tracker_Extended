@@ -8,7 +8,6 @@ public class Alarm {
     private int id;
     private String title;
     private boolean alarmState;
-    private String administrationForm;
     private LocalDate startDate;
     private LocalDate stopDate;
     private LocalTime startTime;
@@ -18,13 +17,12 @@ public class Alarm {
     private boolean repeatState;
     private String repeatTimes;
 
-    public Alarm(int alarmId, String title, boolean state, String administrationForm,
+    public Alarm(int alarmId, String title, boolean state,
                  LocalDate startDate, LocalDate stopDate, LocalTime time, String administrationPerDay,
                  String tone, boolean vibrateState, boolean repeatState/*, String repeatTimes*/) {
         this.id = alarmId;
         this.title = title;
         this.alarmState = state;
-        this.administrationForm = administrationForm;
         this.startDate = startDate;
         this.stopDate = stopDate;
         this.startTime = time;
@@ -54,13 +52,6 @@ public class Alarm {
     }
     public void setTitle (String title) {
         this.title = title;
-    }
-
-    public String getAdministrationForm () {
-        return administrationForm;
-    }
-    public void setAdministrationForm (String administrationForm) {
-        this.administrationForm = administrationForm;
     }
 
     public LocalDate getStartDate () {

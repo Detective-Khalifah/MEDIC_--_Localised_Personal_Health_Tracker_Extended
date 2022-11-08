@@ -127,29 +127,15 @@ public class EditAppointmentActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.edit_appointment, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save_appointment:
-                if (isNewAppointment) {
-                    processNewAppointment();
-                } else {
-                    updateAppointment();
-                }
-//                isNewAppointment ? updateAppointment() : processNewAppointment();
-                Toast.makeText(this, "...", Toast.LENGTH_SHORT).show();
-                break;
-            case android.R.id.home:
-                finish();
-                break;
-            default:
+    public boolean onSupportNavigateUp () {
+        if (isNewAppointment) {
+            processNewAppointment();
+        } else {
+            updateAppointment();
         }
-        return super.onOptionsItemSelected(item);
+//                isNewAppointment ? updateAppointment() : processNewAppointment();
+        Toast.makeText(this, "...", Toast.LENGTH_SHORT).show();
+        return super.onSupportNavigateUp();
     }
 
     private boolean isMinimumMetricFilled () {

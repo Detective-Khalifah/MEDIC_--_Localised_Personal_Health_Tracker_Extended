@@ -58,7 +58,6 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
         String id = cursor.getString(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry._ID));
         String alarmTitle = cursor.getString(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry.COLUMN_ALARM_TITLE));
         int alarmState = cursor.getInt(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry.COLUMN_ALARM_STATE));
-        String administrationForm = cursor.getString(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry.COLUMN_ADMINISTRATION_FORM));
         String alarmStartDate = cursor.getString(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry.COLUMN_ALARM_START_DATE));
         String alarmStopDate = cursor.getString(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry.COLUMN_ALARM_STOP_DATE));
         String alarmTime = cursor.getString(cursor.getColumnIndexOrThrow(AlarmContract.AlarmEntry.COLUMN_ALARM_TIME));
@@ -72,7 +71,6 @@ public class AlarmsCursorRecyclerAdapter extends BaseCursorRecyclerAdapter<Alarm
                 Integer.parseInt(id),
                 alarmTitle,
                 alarmState == 1,
-                administrationForm,
                 TimeConverter.parseDate(alarmStartDate),
                 TimeConverter.parseDate(alarmStopDate),
                 TimeConverter.parseTime(alarmTime),
