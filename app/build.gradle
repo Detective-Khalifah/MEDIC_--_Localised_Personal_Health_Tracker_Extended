@@ -34,6 +34,7 @@ android {
         dataBinding true
         viewBinding true
     }
+    namespace 'com.blogspot.thengnet.medic'
 }
 
 dependencies {
