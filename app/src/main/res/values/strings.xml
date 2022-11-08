@@ -17,9 +17,8 @@
     <string name="app_name">@string/project_title0</string>
     <string name="project_title0">MEDIC</string>
     <string name="project_title1">Localised Personal Health Tracker Extended</string>
-    <string name="title_activity_sign_in">SignInActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_sign_in">Sign In</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string name="menu_alarm">Alarms</string>
     <string name="menu_appointment">Appointments</string>
@@ -240,7 +239,5 @@
     <string name="nav_header_subtitle">Personal Health Tracker (Extended)</string>
     <string name="nav_header_desc">FYP</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ok">OK</string>
 </resources>
