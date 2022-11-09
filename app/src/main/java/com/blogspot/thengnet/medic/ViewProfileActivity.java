@@ -1,13 +1,18 @@
 package com.blogspot.thengnet.medic;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.blogspot.thengnet.medic.databinding.ActivityViewProfileBinding;
+import com.blogspot.thengnet.medic.utilities.ContextUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +52,13 @@ public class ViewProfileActivity extends AppCompatActivity {
                 signOut();
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Locale localeToSwitchTo = new Locale(SettingsActivity.selectedLanguage);
+        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
+        super.attachBaseContext(localeUpdatedContext);
     }
 
     private void signOut () {

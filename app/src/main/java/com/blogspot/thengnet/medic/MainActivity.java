@@ -1,52 +1,61 @@
 package com.blogspot.thengnet.medic;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
-//import android.databinding.DataBindingUtil;
-//import android.support.v7.app.AppCompatActivity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.CursorWindow;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.blogspot.thengnet.medic.databinding.ActivityMainBinding;
-import com.blogspot.thengnet.medic.utilities.AlarmScheduler;
+import com.blogspot.thengnet.medic.utilities.ContextUtils;
 import com.blogspot.thengnet.medic.utilities.NotificationUtil;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+import com.zeugmasolutions.localehelper.LocaleHelper;
+import com.zeugmasolutions.localehelper.LocaleHelperActivityDelegate;
+import com.zeugmasolutions.localehelper.LocaleHelperApplicationDelegate;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceManager;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends LocaleAwareCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
-    private FirebaseAuth mAuth;
-    private FirebaseUser mSignedInUser;
-
-    private SharedPreferences configurations;
-
-    /** Preference Keys */
+    /**
+     * Preference Keys
+     */
     private static String HOUR_FORMAT_PREFERENCE, HOUR_FORMAT_12, HOUR_FORMAT_24,
             ALARM_VOLUME_PREFERENCE,
             ALARM_RING_DURATION_PREFERENCE, ALARM_RING_DURATION_ONE, ALARM_RING_DURATION_THREE,
             ALARM_RING_DURATION_FIVE, ALARM_RING_DURATION_TEN,
             ALARM_SNOOZE_PREFERENCE, ALARM_SNOOZE_DURATION_ONE, ALARM_SNOOZE_DURATION_THREE,
-            ALARM_SNOOZE_DURATION_FIVE, ALARM_SNOOZE_DURATION_TEN
-            ;
+            ALARM_SNOOZE_DURATION_FIVE, ALARM_SNOOZE_DURATION_TEN;
+    private AppBarConfiguration mAppBarConfiguration;
+    private ActivityMainBinding binding;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mSignedInUser;
+    private SharedPreferences configurations;
+    SharedPreferences preferences;
+    private static final String LOG_TAG = MainActivity.class.getName();
+    private String selectedLanguageKey;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -89,10 +98,16 @@ public class MainActivity extends AppCompatActivity implements
 
         mAuth = FirebaseAuth.getInstance();
         mSignedInUser = mAuth.getCurrentUser();
+
+        // SharedPreferences
+        preferences = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        selectedLanguageKey = preferences.getString(getString(R.string.settings_language_key), getString(R.string.lang_english_key));
+        Log.v(LOG_TAG, "lang fetched");
     }
 
     @Override
-    public void onStart() {
+    public void onStart () {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -107,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onDestroy () {
         super.onDestroy();
         binding = null;
+        preferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -118,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected (@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_view_profile:
-                startActivity(new Intent(this, ViewProfileActivity.class));
+//            case R.id.action_view_profile:
+//                startActivity(new Intent(this, ViewProfileActivity.class));
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
         }
@@ -127,15 +143,68 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
+    public boolean onSupportNavigateUp () {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+//    @Override
+//    protected void attachBaseContext (@NonNull Context newBase) {
+//        Locale localeToSwitchTo = new Locale("ha-rNG");
+//        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
+//        super.attachBaseContext(LocaleHelper.INSTANCE.setLocale(localeUpdatedContext, localeToSwitchTo));
+//    }
+
+
+    @Override
+    protected void attachBaseContext (@NonNull Context newBase) {
+        super.attachBaseContext(newBase);
+    }
+
+    @Override
+    protected void onResume () {
+        super.onResume();
+        preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
         // TODO: changed metrics - alarm volume, ring duration, snooze length, hr format,
         //  reminder volume, reminder duration - based on user preferences
+        Log.v(LOG_TAG, "settings changed");
+        Log.v(LOG_TAG, "sharedPrefKey: " + key);
+
+        // Language Preferences changed
+        if (key.equals(getResources().getString(R.string.settings_language_key))) {
+
+            String lang_key, selectedLanguage = "en";
+            lang_key = sharedPreferences.getString(getString(R.string.settings_language_key), getString(R.string.lang_english_key));
+            Log.v(LOG_TAG, "Lang: " + lang_key);
+
+            if (lang_key.equals(getString(R.string.lang_english_key)))
+                selectedLanguage = "en";
+            else if (lang_key.equals(getString(R.string.lang_hausa_key)))
+                selectedLanguage = "ha";
+            else if (lang_key.equals(getString(R.string.lang_igbo_key)))
+                selectedLanguage = "ig";
+            else if (lang_key.equals(getString(R.string.lang_yoruba_key)))
+                selectedLanguage = "yo";
+            Log.v(LOG_TAG, "Selected Lang: " + selectedLanguage);
+
+            Locale localeToSwitchTo = new Locale(selectedLanguage);
+            ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(this, localeToSwitchTo);
+            updateLocale(localeToSwitchTo);
+//            attachBaseContext(localeUpdatedContext);
+
+//            Locale locale = Locale.forLanguageTag(selectedLanguage);
+//            Locale.setDefault(locale);
+//            Configuration config = getBaseContext().getResources().getConfiguration();
+//            config.locale = locale;
+//            getBaseContext().getResources().updateConfiguration(config,
+//                    getBaseContext().getResources().getDisplayMetrics());
+        }
+
     }
+
 }

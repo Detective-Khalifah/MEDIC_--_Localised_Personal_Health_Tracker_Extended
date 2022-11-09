@@ -3,6 +3,9 @@ package com.blogspot.thengnet.medic;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -22,6 +25,7 @@ import com.blogspot.thengnet.medic.data.Appointment;
 import com.blogspot.thengnet.medic.data.AppointmentContract;
 import com.blogspot.thengnet.medic.databinding.ActivityEditAppointmentBinding;
 import com.blogspot.thengnet.medic.utilities.AppointmentScheduler;
+import com.blogspot.thengnet.medic.utilities.ContextUtils;
 import com.blogspot.thengnet.medic.utilities.TimeConverter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,6 +33,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Calendar;
 import java.util.Locale;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.preference.PreferenceManager;
@@ -127,15 +132,32 @@ public class EditAppointmentActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+        saveAppointment();
+    }
+
+    @Override
     public boolean onSupportNavigateUp () {
+        saveAppointment();
+        return super.onSupportNavigateUp();
+    }
+
+    private void saveAppointment() {
         if (isNewAppointment) {
             processNewAppointment();
         } else {
             updateAppointment();
         }
 //                isNewAppointment ? updateAppointment() : processNewAppointment();
-        Toast.makeText(this, "...", Toast.LENGTH_SHORT).show();
-        return super.onSupportNavigateUp();
+        Toast.makeText(EditAppointmentActivity.this, "Required details missing!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Locale localeToSwitchTo = new Locale(SettingsActivity.selectedLanguage);
+        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
+        super.attachBaseContext(localeUpdatedContext);
     }
 
     private boolean isMinimumMetricFilled () {

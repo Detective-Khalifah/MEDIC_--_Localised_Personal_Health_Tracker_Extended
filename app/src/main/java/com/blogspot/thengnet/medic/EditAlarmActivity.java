@@ -1,8 +1,10 @@
 package com.blogspot.thengnet.medic;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,10 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -32,6 +31,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
+//import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.preference.Preference;
@@ -150,6 +150,8 @@ public class EditAlarmActivity extends AppCompatActivity {
                 Uri toneUri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
                 Log.v(LOG_TAG, "(PICKED) Alarm Tone URI:: " +
                         data.getExtras().get(RingtoneManager.EXTRA_RINGTONE_PICKED_URI));
+                Log.v(LOG_TAG, "(PICKED) Alarm Tone Title:: " +
+                        data.getExtras().get(RingtoneManager.EXTRA_RINGTONE_TITLE));
                 mNewAlarmToneUri = toneUri;
                 binding.textviewAlarmTonePicker.setText(
                         getString(R.string.alarm_tone_picker_label, toneUri.toString()));
@@ -161,15 +163,24 @@ public class EditAlarmActivity extends AppCompatActivity {
     //  {@link ActionBar}
     @Override
     public boolean onSupportNavigateUp () {
-        Log.v(LOG_TAG, "Nav up");
+        saveAlarm();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+        saveAlarm();
+    }
+
+    private void saveAlarm () {
         if (isNewAlarm) {
             processNewAlarm();
         } else {
             updateAlarm();
         }
 //                isNewAlarm ? updateAlarm() : processNewAlarm();
-        Toast.makeText(this, "...", Toast.LENGTH_SHORT).show();
-        return super.onSupportNavigateUp();
+        Toast.makeText(EditAlarmActivity.this, "Required details missing!", Toast.LENGTH_LONG).show();
     }
 
     private boolean isMinimumMetricFilled () {
@@ -260,21 +271,21 @@ public class EditAlarmActivity extends AppCompatActivity {
         // -- un-schedule old Alarm if there were modifications, and (old) Alarm was enabled.
         // -- schedule new Alarm if there were modifications, and (new) Alarm is enabled.
         // If Alarm got disabled WITHOUT any modifications made, un-scheduled the old Alarm.
-            if (mNewAlarmStartTime.equals(mSavedAlarmStartTime) &&
-                    mNewAlarmStartDate.equals(mSavedAlarmStartDate) &&
-                    mNewAlarmStopDate.equals(mSavedAlarmStopDate)) {
-                Log.v(LOG_TAG, "Alarm time metrics modified!");
+        if (mNewAlarmStartTime.equals(mSavedAlarmStartTime) &&
+                mNewAlarmStartDate.equals(mSavedAlarmStartDate) &&
+                mNewAlarmStopDate.equals(mSavedAlarmStopDate)) {
+            Log.v(LOG_TAG, "Alarm time metrics modified!");
 
-                // Cancel previously set Alarm, only if the old Alarm's time metric(s) got updated.
-                if (mSavedAlarmState == 1) AlarmScheduler.stopAlarm(this, mAlarmId);
-                // (re-)Schedule a new Alarm using the updated metric(s), only if the Alarm got enabled (at update).
-                if (mNewAlarmState == 1) AlarmScheduler.setupAlarm(this, mAlarmId, mAlarmUri);
-            } else {
-                // Un-schedule disabled, OLD Alarm; field "mNewAlarmState" suggests a NEW Alarm but
-                // the int value is only used to hold metrics of an Alarm being edited, which may or
-                // may not be an update to the OLD Alarm -- have same (time) metrics as the OLD Alarm.
-                if (mNewAlarmState == 0) AlarmScheduler.stopAlarm(this, mAlarmId);
-            }
+            // Cancel previously set Alarm, only if the old Alarm's time metric(s) got updated.
+            if (mSavedAlarmState == 1) AlarmScheduler.stopAlarm(this, mAlarmId);
+            // (re-)Schedule a new Alarm using the updated metric(s), only if the Alarm got enabled (at update).
+            if (mNewAlarmState == 1) AlarmScheduler.setupAlarm(this, mAlarmId, mAlarmUri);
+        } else {
+            // Un-schedule disabled, OLD Alarm; field "mNewAlarmState" suggests a NEW Alarm but
+            // the int value is only used to hold metrics of an Alarm being edited, which may or
+            // may not be an update to the OLD Alarm -- have same (time) metrics as the OLD Alarm.
+            if (mNewAlarmState == 0) AlarmScheduler.stopAlarm(this, mAlarmId);
+        }
 
         if (numberOfAlarmsUpdated == 1) {
             editAlarmNotifier.setText(getString(R.string.edit_alarm_successful_save));
@@ -364,11 +375,13 @@ public class EditAlarmActivity extends AppCompatActivity {
                     mAlarmUri);
             editAlarmNotifier.setText(message);
             editAlarmNotifier.show();
+            Toast.makeText(EditAlarmActivity.this, message, Toast.LENGTH_LONG).show();
             finish();
         }
 
         editAlarmNotifier.setText(getString(R.string.edit_alarm_unsuccessful_save));
         editAlarmNotifier.show();
+        Toast.makeText(EditAlarmActivity.this, getString(R.string.edit_alarm_unsuccessful_save), Toast.LENGTH_LONG).show();
 
     }
 

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">\@string/project_title0</string>
+    <string name="project_title0">Tattalin Lafiya</string>
+    <string name="project_title1">Kebantaccen makarin lafiyar kurkusa a wadace</string>
+    <string name="title_activity_sign_in">Shiga</string>
+    <string name="title_activity_settings">Saiti</string>
+
+    <string name="menu_alarm">Ƙararrawar tunatarwa</string>
+    <string name="menu_appointment">Lokacin Ganawa</string>
+    <string name="menu_hospital">Nemi Asibiti</string>
+
+    <string name="welcome">"Barka !"</string>
+
+    <!-- Sign In/Up labels -->
+    <string name="prompt_email">Ma\'ajiyar Saƙonni (Imel)</string>
+    <string name="prompt_password">Mabuɗin sirri</string>
+    <string name="action_sign_in">Shiga ko Shigar da Bayanai</string>
+    <string name="action_sign_in_short">Shiga</string>
+    <string name="action_sign_out">Fita</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_sign_up_with_phone">Shiga da lambar waya maimakon</string>
+    <string name="action_sign_up_with_email">Shiga da Ma\'adanar Saƙonni maimakon</string>
+
+    <!-- Sign In/Up feedback -->
+    <string name="invalid_username">Ba ingantaccen sunan shiga kebantaccen shafi bane</string>
+    <string name="invalid_password">Mabudin sirri dole ya zama sama da haruffa 5</string>
+    <string name="login_failed">"Damar shiga shafi bai samu ba"</string>
+
+    <!-- Alarm param labels -->
+    <string name="start_date">Kwanan watan farawa</string>
+    <string name="start_time">Lokaci</string>
+    <string name="stop_date">Kwanan watan Tsayarwa</string>
+    <string name="stop_time">Lokacin Tsayarwa</string>
+
+    <!-- EditAlarm labels, contentDescriptions,... -->
+    <string name="edit_alarm_found_match">An samu maimaituwar ƙararrawar tunatarwa!</string>
+    <string name="edit_alarm_successful_save">An adana kuma an tsara qararrawar tunatarwa!</string>
+    <string name="edit_alarm_unsuccessful_save">Adana Ƙararrawar tunatarwa bai samu ba…</string>
+    <string name="edit_alarm_successful_update">An sabunta kuma an ƙara tsara ƙararrawar tunatarwa!</string>
+    <string name="edit_alarm_unsuccessful_update">Ƙararrawar tunatarwa bata sabunta ba…</string>
+    <string name="administration_per_day">Tsare-tsare (na rana daya)</string>
+    <string name="vibrate_state_label">Gurnanin waya</string>
+    <string name="alarm_tone_picker_label">Sautin ƙararrawar tunatarwa: %s</string>
+    <string name="select_alarm_tone">Zaɓi sautin ƙararrawar tunatarwa</string>
+    <string name="date_f">%2d-%2d-%4d</string>
+
+    <!-- EditAppointment labels, contentDescriptions,... -->
+    <string name="reminder_title">Tunatar dani akan</string>
+    <string name="appointment_location">Guri</string>
+    <string name="edit_appointment_found_match">An samu maimaituwar lokacin ganawa!</string>
+    <string name="edit_appointment_successful_save">An adana kuma an tsara lokacin ganawa!</string>
+    <string name="edit_appointment_unsuccessful_save">Ba a samu damar adana lokacin ganawa ba…</string>
+    <string name="edit_appointment_successful_update">An sabunta kuma an qara tsara lokacin ganawa!</string>
+    <string name="edit_appointment_unsuccessful_update">Ba a samu sabunta lokacin ganawa ba…</string>
+    <string name="repeat">Maimaita</string>
+
+
+    <string name="action_settings">Saiti</string>
+    <string name="action_skip">Tsallake</string>
+    <string name="action_view_profile">Duba Keɓantaccen Tsari</string>
+    <string name="news_settings_menu_title">Saiti</string>
+    <string name="settings_summary">Tsare-tsaren abubuwa na…</string>
+
+    <!-- USED LOCALLY IN APP TO DETERMINE CONFIG -->
+    <string name="settings_alarm_header">Ƙararrawar tunatarwa</string>
+    <string name="settings_alarm_volume_label">Ƙarar ƙararrawar tunatarwa</string>
+
+    <string name="settings_alarm_ring_duration_label">Tsahon lokacin kiɗan ƙararrawar tunatarwa</string>
+
+    <string name="calendar_header">Jerin kwanaki (Kalanda)</string>
+    <string name="settings_reminder_volume_label">Ƙarar tunatarwa</string>
+
+    <string name="settings_calendar_reminder_duration_label">Tsahon lokacin tunatarda jerin kwanaki (kalanda)</string>
+
+    <string name="settings_language_label">Zaɓaɓɓen yare</string>
+
+    <string name="settings_snooze_length_label">Tsahon gyangyaɗi</string>
+
+    <!-- Hour format configuration labels & keys -->
+    <string name="settings_hour_format_label">Tsarin Awa</string>
+
+    <string name="hour_format_12_label">Awa goma sha biyu(12)</string>
+
+    <string name="hour_format_24_label">Awa ishirin da huɗu(24)</string>
+
+
+    <string name="one_min_label">minti ɗaya(1)</string>
+    <string name="three_mins_label">minti uku(3)</string>
+    <string name="five_mins_label">minti biyar(5)</string>
+    <string name="ten_mins_label">minti goma(10)</string>
+
+    <string name="lang_english_label">Turanci</string>
+    <string name="lang_hausa_label">Hausa</string>
+    <string name="lang_igbo_label">Inyamiranci</string>
+    <string name="lang_yoruba_label">Yarbanci</string>
+
+    <!-- Dosing Times -->
+    <string name="q24h">1</string>
+    <string name="q12h">2</string>
+    <string name="q8h">3</string>
+    <string name="q6h">4</string>
+    <string name="q4h">6</string>
+
+    <!-- First time to remind user of an appointment before appointed time -->
+    <string name="remind_1_hour_before">Tunatar awa ɗaya kafin lokacin ganawa</string>
+    <string name="remind_2_hours_before">Tunatar awa biyu kafin lokacin ganawa</string>
+    <string name="remind_5_hours_before">Tunatar awa biyar kafin lokacin ganawa</string>
+    <string name="remind_1_day_before">Tunatar kwana daya kafin lokacin ganawa</string>
+    <string name="remind_2_days_before">Tunatar kwana biyu kafin lokacin ganawa</string>
+    <string name="remind_1_week_before">Tunatar sati ɗaya kafin lokacin ganawa</string>
+
+    <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_both">Matsar hagu domin gyangyaɗi ko dama domin ɓatar da shafi</string>
+
+    <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=15] -->
+    <string name="alarm_alert_off_text">Kashe ƙararrawar tunatarwa</string>
+
+    <!-- Button labels on the alarm dialog: Snooze -->
+    <string name="alarm_alert_snooze_text">Gyangyaɗi</string>
+
+    <!-- Button labels on the alarm dialog: Dismiss -->
+    <string name="alarm_alert_dismiss_text">Ɓatar da wajen</string>
+
+    <!-- Alarm Alert screen: this message is shown after an alarm rung
+         unattended for a number of minutes.  It tells the user that
+         the alarm has been silenced.-->
+    <string name="alarm_missed_title">Ƙararrawar tunatarwar da aka rasa</string>
+    <string name="alarm_missed_text"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
+
+    <!-- The text shown after user snoozed an alerting alarm. The text will be shown
+         together with the number of minutes in two separate lines. For example:
+             Snoozed
+             10 min
+         [CHAR LIMIT=10]
+    -->
+    <string name="alarm_alert_snoozed_text">An gyangyaɗa</string>
+
+    <!-- The text shown after user snoozed an alerting alarm. The text will be shown
+         together with the word 'Snoozed' in two separate lines or example:
+             Snoozed
+             10 min
+         [CHAR LIMIT=10]
+    -->
+    <plurals name="alarm_alert_snooze_duration">
+        <!-- Duration for one minute -->
+        <item quantity="one">minti ɗaya</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g>minti </item>
+    </plurals>
+
+    <!-- Toast that appears after Alarm is snoozed from the Alarm
+         dialog. Says the alarm will snooze for xxx minutes.  -->
+    <plurals name="alarm_alert_snooze_set">
+        <!-- Duration for one minute -->
+        <item quantity="one">Gyangyaɗi na minti ɗaya.</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other">Gyangyaɗi na <xliff:g id="minutes">%d</xliff:g>minutuna  .</item>
+    </plurals>
+
+    <!-- Category names for events describe the type of object that was manipulated. -->
+    <string name="category_alarm">Ƙararrawar tunatarwa</string>
+
+    <!-- Action names for events describe what type of manipulation was performed. -->
+    <string name="action_dismiss">Ɓace</string>
+    <string name="action_hide">Ɓoye</string>
+    <string name="action_snooze">Gyangyaɗi</string>
+
+    <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
+         be on the right even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_right">Matsa hannun dama domin ɓacewa</string>
+    <!-- Text instruction for snooze alarm on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_left">Matsa hannun hagu domin gyangyaɗi</string>
+    <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+
+    <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
+    <string name="alarms_blocked_by_dnd">An saita na\'ura domin yin tsit</string>
+
+    <!-- Text to display when alarm volume is muted. [CHAR LIMIT=50] -->
+    <string name="alarm_volume_muted">An saka ƙararrawar tunatarwa a shiru</string>
+
+    <!-- Text for action that presents a volume control to adjust alarm volume. [CHAR LIMIT=20] -->
+    <string name="unmute_alarm_volume">Cire saitin shiru</string>
+
+    <!-- Text to display when system default alarm ringtone is silent. [CHAR LIMIT=50] -->
+    <string name="silent_default_alarm_ringtone">Tsayayyiyar ƙararrawar tunatarwa tana tsarin shiru</string>
+
+    <!-- Text for action that shows the UI that changes the default alarm ringtone. [CHAR LIMIT=20] -->
+    <string name="change_setting_action">Canja</string>
+
+    <!-- Text to display when app notifications are blocked. [CHAR LIMIT=50] -->
+    <string name="app_notifications_blocked">An toshe masanar agogo</string>
+
+    <!-- Label names for events describe the entity responsible for an event. -->
+    <string name="label_deskclock">Agogon teburin karatu</string>
+
+    <string name="nav_header_title">MEDIC</string>
+    <string name="nav_header_subtitle">Personal Health Tracker (Extended)</string>
+    <string name="nav_header_desc">Domin shafinka</string>
+
+    <string name="ok">Yawwa</string>
+    <string name="cancel_alarm">Cancel</string>
+    <string name="alarm_dialog_message" />
+    <string name="alarm_dialog_title" />
+</resources>

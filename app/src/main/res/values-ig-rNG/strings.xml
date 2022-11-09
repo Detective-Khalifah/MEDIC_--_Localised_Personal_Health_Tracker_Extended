@@ -209,4 +209,7 @@
     <string name="nav_header_desc">FYP</string>
 
     <string name="ok">OK</string>
+    <string name="cancel_alarm">Cancel</string>
+    <string name="alarm_dialog_message" />
+    <string name="alarm_dialog_title" />
 </resources>

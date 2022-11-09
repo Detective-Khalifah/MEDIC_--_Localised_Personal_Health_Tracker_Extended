@@ -1,8 +1,15 @@
 package com.blogspot.thengnet.medic;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+
+import com.blogspot.thengnet.medic.utilities.ContextUtils;
+
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -13,6 +20,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    public static String selectedLanguage = "en";
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -36,6 +45,13 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Locale localeToSwitchTo = new Locale(selectedLanguage);
+        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
+        super.attachBaseContext(localeUpdatedContext);
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
@@ -81,9 +97,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public boolean onPreferenceChange (Preference preference, Object newValue) {
-            // parse the newly-selected preference as a String
+            // Parse the newly-selected preference as a String
             String preferenceValue = newValue.toString();
-            // get the index of newly-selected preference item and set its summary only if the
+
+            // Get the index of newly-selected preference item and set its summary only if the
             // preference that got changed is a ListPreference; return true if successful
             if (preference instanceof ListPreference) {
                 ListPreference listPref = (ListPreference) preference;
@@ -91,6 +108,18 @@ public class SettingsActivity extends AppCompatActivity {
                 if (indexOfSelectedValue >= 0) {
                     CharSequence[] prefLabels = listPref.getEntries();
                     preference.setSummary(prefLabels[indexOfSelectedValue]);
+
+                    Log.v("SettingsActivity", newValue.toString());
+                    if (newValue == this.getContext().getString(R.string.lang_english_key))
+                        selectedLanguage = "en";
+                    else if (newValue == this.getContext().getString(R.string.lang_hausa_key))
+                        selectedLanguage = "ha-rNG";
+                    else if (newValue == this.getContext().getString(R.string.lang_igbo_key))
+                        selectedLanguage = "ig-rNG";
+                    else if (newValue == this.getContext().getString(R.string.lang_yoruba_key))
+                        selectedLanguage = "yo-rNG";
+
+                    ContextUtils.updateLocale(this.getContext(), Locale.forLanguageTag(selectedLanguage));
                 }
                 return true;
             } else

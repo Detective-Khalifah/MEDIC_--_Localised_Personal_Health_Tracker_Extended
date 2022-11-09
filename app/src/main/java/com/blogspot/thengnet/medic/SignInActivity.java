@@ -1,6 +1,8 @@
 package com.blogspot.thengnet.medic;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,11 +10,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.blogspot.thengnet.medic.databinding.ActivitySignInBinding;
+import com.blogspot.thengnet.medic.utilities.ContextUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +58,13 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(SignInActivity.this,MainActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Locale localeToSwitchTo = new Locale(SettingsActivity.selectedLanguage);
+        ContextWrapper localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo);
+        super.attachBaseContext(localeUpdatedContext);
     }
 
     private void signIn (String email, String password) {

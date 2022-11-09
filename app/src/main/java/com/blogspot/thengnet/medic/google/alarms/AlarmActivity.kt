@@ -38,9 +38,12 @@ import androidx.annotation.RequiresApi
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.animation.PathInterpolatorCompat
 import com.blogspot.thengnet.medic.R
+import com.blogspot.thengnet.medic.SettingsActivity
 import com.blogspot.thengnet.medic.google.*
 import com.blogspot.thengnet.medic.google.widget.CircleView
 import com.blogspot.thengnet.medic.services.AlarmService
+import com.blogspot.thengnet.medic.utilities.ContextUtils
+import java.util.*
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -180,6 +183,12 @@ class AlarmActivity : BaseActivity(), View.OnClickListener, View.OnTouchListener
         mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR)
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE)
         mPulseAnimator.start()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val localeToSwitchTo = Locale(SettingsActivity.selectedLanguage)
+        val localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitchTo)
+        super.attachBaseContext(localeUpdatedContext)
     }
 
     override fun onResume() {
